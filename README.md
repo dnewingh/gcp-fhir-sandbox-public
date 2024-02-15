@@ -4,6 +4,7 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 # Use cases to support connetathon POCs
 - public FHIR server (open endpoints)
 - ability to create and load mock data onto the server with a spreadsheet like UI
+    - 2/15: completed POC with ETL scripts for Patients and Conditions and verified imported successfully.
 - ability to extend FHIR server capability by adding custom operations on FHIR resources
 - ability to query FHIR data and build data visualizations
 - ability to setup subscriptions
