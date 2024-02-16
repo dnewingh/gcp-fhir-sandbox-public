@@ -3,10 +3,12 @@ const express = require('express');
 
 //import our own files
 const userRoutes = require("./routes/user-routes");
+const fhirstoreRoutes = require("./routes/fhirstore-routes");
 
 // Create an Express object and routes (in order)
 const app = express();
 app.use('/users/', userRoutes);
+app.use('/fhir/', fhirstoreRoutes);
 
 //handle route not found
 app.use((req, res) => { res.status(404).send('Bad URL'); });
