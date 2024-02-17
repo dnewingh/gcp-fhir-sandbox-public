@@ -2,6 +2,13 @@
 1. Troubleshoot capapability statement: try search method - https://cloud.google.com/healthcare-api/docs/how-tos/fhir-search?hl=en#using_the_search_method_with_get
 2. Create visual to show express app running in cloud function which allows unauthenticated requests forwarding requests to Healthcare API endpoint which requires authentication and auth is provided by GoogleAuth client
 
+# Develop from local machine
+Create application default credentials file.
+```
+gcloud auth application-default login
+```
+https://cloud.google.com/docs/authentication/provide-credentials-adc#google-idp
+
 # Deploy from local machine
 
 Authorize gcloud CLI
