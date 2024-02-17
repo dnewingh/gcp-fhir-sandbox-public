@@ -20,14 +20,17 @@ async function getMetadata(req, res) {
 
     try {
         const resourceType = 'metadata';
-        const url = fhirStoreUrl + '/fhir/' + resourceType;
+        //const resourceType = 'Patient/Patient-0';
+        const url = fhirStorePath + '/fhir/' + resourceType;
         const params = req.query;
         const client = await authClient.getClient();
         const response = await client.request({url, method: 'GET', params});
-        res.send(response.data);
+        console.log(JSON.stringify(response.data.entry, null, 2));
+        res.json(JSON.stringify(response, null, 2));
         
     } catch (error) {
-        res.send({message: error})
+        console.log(error);
+        res.json({message: error});
     }    
 }
    
