@@ -5,13 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "functions-framework --target=app --function-signature-type=http",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec npm run start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/functions-framework": "^3.3.0",
     "@googleapis/healthcare": "^13.2.0",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "google-auth-library": "^9.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
