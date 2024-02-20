@@ -89,7 +89,7 @@ async function getResourceById(req, res) {
 //define routes
 router.get("/:resourceType/:resourceId", getResourceById);
 router.get("/:resourceType", searchResources);
-router.get("/", (req, res) => res.redirect('/fhir/metadata'));
+router.get("/", (req, res) => res.redirect('./metadata'));
 
 //export the configured router object
 module.exports = router;
