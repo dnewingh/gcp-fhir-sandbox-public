@@ -1,7 +1,7 @@
 # Background
 This project is an end to end guide for spinning up a FHIR sandbox environment in Google Cloud Platform.  In addition to the core FHIR server capabilities this project addresses several common use cases required to support connectathon POCs.
 
-# Use cases to support connetathon POCs
+## Use cases to support connetathon POCs
 - public FHIR server (open endpoints)
 - ability to create and load mock data onto the server with a spreadsheet like UI
     - 2/15: completed POC with ETL scripts for Patients and Conditions and verified imported successfully.
@@ -10,7 +10,7 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 - ability to setup subscriptions
 - ability to launch via SMART on FHIR OAuth workflow
 
-# GCP FHIR sandbox components list
+## GCP FHIR sandbox components list
 - Healthcare API
 - Pub/Sub
 - Big Query
