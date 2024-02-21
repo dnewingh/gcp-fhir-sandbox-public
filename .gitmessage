@@ -1,0 +1,53 @@
+# TITLE: Summarize changes in around 50 characters or less
+# - If applied, this commit will your *subject line here*
+# No more than 50 chars. #### 50 chars is here:  #
+
+# BODY (optional): Explain *what* and *why* (not *how*).
+# Explain the problem that this commit is solving. Focus on why you
+# are making this change as opposed to how (the code explains that).
+# Are there side effects or other unintuitive consequences of this
+# change? Here's the place to explain them.
+#
+# Further paragraphs come after blank lines.
+#
+#  - Bullet points are okay, too
+#
+# - Typically a hyphen or asterisk is used for the bullet, preceded
+#    by a single space, with blank lines in between, but conventions
+#    vary here
+# Wrap at 72 chars. ################################## which is here:  #
+# UNCOMMENT AND CLEAR TO INTRODUCE BLANK LINE
+# UNCOMMENT AND CLEAR TO COMPOSE BODY HERE
+#
+# METADATA: If you use an issue tracker, put references to them at the
+# bottom, like this:
+# Resolves: #123
+# See also: #456, #789
+#
+# At the end: Include Co-authored-by for all contributors. 
+# Include at least one empty line before it. Format: 
+# Co-authored-by: name <user@users.noreply.github.com>
+#
+# INSPIRATION: How to Write a Git Commit Message:
+#  - https://chris.beams.io/posts/git-commit/
+#  - https://thoughtbot.com/blog/better-commit-messages-with-a-gitmessage-template
+#  - https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733
+#  - https://www.conventionalcommits.org/en/v1.0.0/
+#
+# ADDITIONAL REFERENCES
+# TITLE: Summary, imperative, start upper case, don't end with a period
+# A properly formed Git commit subject line should always be able to complete the following sentence:
+# - If applied, this commit will your *subject line here*
+# For example:
+# - If applied, this commit will *refactor subsystem X for readability*
+# - If applied, this commit will *update getting started documentation*
+# - If applied, this commit will *remove deprecated methods*
+# - If applied, this commit will *release version 1.0.0*
+# - If applied, this commit will *merge pull request #123 from user/branch*
+#
+# ———————— >8 ————————
+# Do not modify or remove the line above.
+# Everything below it will be ignored.
+# diff –git a/blah b/blah
+# new file mode 100644
+# index 0000000..e69de29
