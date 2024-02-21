@@ -16,9 +16,16 @@ function getResourceById(req, res) {
     res.send(req.params);
 }
 
+function logging (req, res) {
+    console.log(req.originalUrl);
+    console.log(req.url);
+    res.send('hello');
+}
+
 //define routes
-router.get("/:resourceType/:resourceId", getResourceById);
-router.get("/:resourceType", getResource);
+//router.get("/:resourceType/:resourceId", getResourceById);
+//router.get("/:resourceType", getResource);
+router.get("*", logging);
 
 //export the configured router object
 module.exports = router;

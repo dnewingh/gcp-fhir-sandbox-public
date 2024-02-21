@@ -24,7 +24,7 @@ async function searchResources(req, res) {
       const client = await auth.getClient();
 
       //send request
-      const response = await client.request({url, method: 'GET', params});
+      const response = await client.request({url, method: req.method, params});
       console.log(response);
 
       //determine if data type in response contains blob and handle accordingly
@@ -85,11 +85,51 @@ async function getResourceById(req, res) {
       res.json({message: error});
   }    
 }
+
+//define handlers
+async function queryFhirstore(req, res) {
+  try {
+      const resourceType = req.params.resourceType;
+      const url = fhirStorePath + req.originalUrl;
+      console.log(url);
+      //const params = req.query;
+      
+      //initialize gcloud authorization client
+      const auth = new GoogleAuth(oauthOptions);
+      const client = await auth.getClient();
+
+      //send request
+      const response = await client.request({url, method: req.method});
+      //console.log(response);
+
+      //determine if data type in response contains blob and handle accordingly
+      const responseDataToString = response.data.toString();
+      //console.log(responseDataToString);
+      let responseDataJsObect = {};
+
+      if (responseDataToString == '[object Blob]') {
+        //read blob text and convert to JS object
+        const responseDataText = await response.data.text();
+        responseDataJsObect = JSON.parse(responseDataText);
+      } else {
+        responseDataJsObect = response.data;
+      }
+      
+      //console.log(resonseDataJsObect);
+      res.json(responseDataJsObect);
+      
+  } catch (error) {
+      console.log(error);
+      res.json({message: error});
+  }    
+}
    
 //define routes
-router.get("/:resourceType/:resourceId", getResourceById);
-router.get("/:resourceType", searchResources);
-router.get("/", (req, res) => res.redirect('./metadata'));
+//router.get("/:resourceType/:resourceId", getResourceById);
+//router.get("/:resourceType", searchResources);
+//router.post("/:resourceType", searchResources);
+//router.get("/", (req, res) => res.redirect('./metadata'));
+router.all("*", queryFhirstore);
 
 //export the configured router object
 module.exports = router;
