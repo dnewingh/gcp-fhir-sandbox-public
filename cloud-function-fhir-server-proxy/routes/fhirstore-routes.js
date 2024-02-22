@@ -97,9 +97,14 @@ async function queryFhirstore(req, res) {
       //initialize gcloud authorization client
       const auth = new GoogleAuth(oauthOptions);
       const client = await auth.getClient();
-
+      
       //send request
-      const response = await client.request({url, method: req.method});
+      const requestOptions = {
+        url, 
+        method: req.method, 
+        ...(req.body.length>0 && {data: req.body})
+      };
+      const response = await client.request(requestOptions);
       //console.log(response);
 
       //determine if data type in response contains blob and handle accordingly
