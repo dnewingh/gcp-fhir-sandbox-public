@@ -102,7 +102,7 @@ async function queryFhirstore(req, res) {
       const requestOptions = {
         url, 
         method: req.method, 
-        ...(req.body.length>0 && {data: req.body})
+        ...(req.body.length>0 && {data: req.body})  //conditionally adds data propoerty to request options if req.body has data
       };
       const response = await client.request(requestOptions);
       //console.log(response);
