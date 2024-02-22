@@ -11,6 +11,7 @@ const app = express();
 app.use('/users/', userRoutes);
 app.use('/fhir/', fhirstoreRoutes);
 app.use('/test/', testRoutes);
+app.use('/', (req, res) => { res.status(200).send('Hello World'); })  //root requires 200 response to trigger automated testing with start-server-and-test package
 
 //handle route not found
 app.use((req, res) => { res.status(404).send('Bad URL'); });

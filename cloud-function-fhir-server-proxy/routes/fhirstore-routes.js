@@ -99,13 +99,15 @@ async function queryFhirstore(req, res) {
       const client = await auth.getClient();
       
       //send request
+      //console.log(Object.keys(req.body).length>0);
       const requestOptions = {
         url, 
         method: req.method, 
-        ...(req.body.length>0 && {data: req.body})  //conditionally adds data propoerty to request options if req.body has data
+        ...(Object.keys(req.body).length>0 && {data: req.body}) //conditionally adds data propoerty to request options if req.body has data
       };
+      //console.log(requestOptions);
       const response = await client.request(requestOptions);
-      //console.log(response);
+      //console.log(JSON.stringify(response, null, 2));
 
       //determine if data type in response contains blob and handle accordingly
       const responseDataToString = response.data.toString();
@@ -121,11 +123,11 @@ async function queryFhirstore(req, res) {
       }
       
       //console.log(resonseDataJsObect);
-      res.json(responseDataJsObect);
+      res.status(response.status).json(responseDataJsObect);
       
   } catch (error) {
-      console.log(error);
-      res.json({message: error});
+      console.log(JSON.stringify(error, null, 2));
+      res.status(400).json({message: error});
   }    
 }
    
