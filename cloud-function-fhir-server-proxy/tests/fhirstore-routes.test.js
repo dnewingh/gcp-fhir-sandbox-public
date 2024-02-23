@@ -30,10 +30,37 @@ describe('Test Handlers', function () {
     test('create', async () => {
         const res = await request(TEST_ENDPOINT).post('/fhir/Patient').send(testPatientPayload);
         //expect(res.header['content-type']).toBe('text/html; charset=utf-8');
-        console.log(JSON.stringify(res, null, 2));
+        //console.log(JSON.stringify(res, null, 2));
         expect(res.statusCode).toBe(201);
         currentResourceId = res.body.id;
         //expect(res.text).toEqual('Hello, World and good day');
+    });
+
+    test('update', async () => {
+        const updatedTestPatientPayload = testPatientPayload;
+        updatedTestPatientPayload.id = currentResourceId;
+        updatedTestPatientPayload.active = false;
+
+        const res = await request(TEST_ENDPOINT)
+            .put('/fhir/Patient/'+ currentResourceId)
+            .send(updatedTestPatientPayload);
+        //expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+        //console.log(JSON.stringify(res, null, 2));
+        expect(res.statusCode).toBe(200);
+        
+    });
+
+    test('patch', async () => {
+        const jsonPatchPayload = [{op: 'replace', path: '/active', value: true}];
+
+        const res = await request(TEST_ENDPOINT)
+            .patch('/fhir/Patient/'+ currentResourceId)
+            .set('Content-Type', 'application/json-patch+json')
+            .send(jsonPatchPayload);
+        
+        console.log(JSON.stringify(res, null, 2));
+        expect(res.statusCode).toBe(200);
+        
     });
 
 });
