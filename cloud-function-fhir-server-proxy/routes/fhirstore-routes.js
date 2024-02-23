@@ -97,13 +97,21 @@ async function queryFhirstore(req, res) {
       //initialize gcloud authorization client
       const auth = new GoogleAuth(oauthOptions);
       const client = await auth.getClient();
+
+      const transformRequest = [
+        (data, headers) => {
+            data.set('Content-Type', 'application/json-patch+json');            
+            return data;
+        }
+    ];
       
       //send request
       //console.log(Object.keys(req.body).length>0);
       const requestOptions = {
         url, 
         method: req.method, 
-        ...(Object.keys(req.body).length>0 && {data: req.body}) //conditionally adds data propoerty to request options if req.body has data
+        ...(Object.keys(req.body).length>0 && {data: req.body}), //conditionally adds data propoerty to request options if req.body has data
+        ...(req.method=='PATCH' && {headers: {"Content-Type": "application/json-patch+json"}})
       };
       //console.log(requestOptions);
       const response = await client.request(requestOptions);
