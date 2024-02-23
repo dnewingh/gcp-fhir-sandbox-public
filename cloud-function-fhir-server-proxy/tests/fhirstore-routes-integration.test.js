@@ -4,12 +4,7 @@ const testPatientPayload = require('./sample-patient.json');
 const TEST_ENDPOINT = 'http://localhost:8080';
 
 describe('Test Handlers', function () {
-    test('responds to /', () => {
-        const result = 'hello world!';       
-        expect(result).toEqual('hello world!');
-    });
-
-    test('responds to / x2', async () => {
+    test('root directory for 200 status code', async () => {
         const res = await request(TEST_ENDPOINT).get('/');
         //expect(res.header['content-type']).toBe('text/html; charset=utf-8');
         expect(res.statusCode).toBe(200);
