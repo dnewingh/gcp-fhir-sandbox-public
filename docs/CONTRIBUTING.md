@@ -1,6 +1,7 @@
 # Contributor reference guide
 ## Coding Conventions
 - JavaScript Style Guide - https://www.w3schools.com/js/js_conventions.asp
+- Commonly used verbs - https://dev.to/maikomiyazaki/beginner-s-cheat-sheet-commonly-used-verbs-for-naming-functions-methods-and-variables-509i
 
 ## Github Workflow
 - Minor changes can be directly committed to master
