@@ -63,4 +63,21 @@ describe('Test Handlers', function () {
         
     });
 
+    let currentResourceVersion;
+    test('history', async () => {
+        const res = await request(TEST_ENDPOINT)
+            .get('/fhir/Patient/'+ currentResourceId + '/_history') 
+            expect(res.statusCode).toBe(200);
+            expect(res.body.total).toEqual(3);
+
+        currentResourceVersion = res.body.entry[1].resource.meta.versionId;
+    });
+
+    test('vread', async () => {
+        const res = await request(TEST_ENDPOINT)
+            .get('/fhir/Patient/'+ currentResourceId + '/_history/' + currentResourceVersion) 
+            expect(res.statusCode).toBe(200);
+            expect(res.body.meta.versionId).toEqual(currentResourceVersion);
+    });
+
 });
