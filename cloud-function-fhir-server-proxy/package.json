@@ -6,7 +6,7 @@
   "scripts": {
     "start": "functions-framework --target=app --function-signature-type=http",
     "dev": "nodemon --exec npm run start",    
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage --runInBand",
     "ci": "start-server-and-test http://localhost:8080",
     "tdd": "nodemon --exec \"npm run ci\""
   },
