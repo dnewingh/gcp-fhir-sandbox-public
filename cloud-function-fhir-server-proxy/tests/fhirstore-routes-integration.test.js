@@ -11,6 +11,12 @@ describe('Test Handlers', function () {
         //expect(res.text).toEqual('Hello, World and good day');
       });
 
+    test('read', async () => {
+        const res = await request(TEST_ENDPOINT).get('/fhir/metadata');
+        expect(res.statusCode).toBe(200);
+        expect(res.body.resourceType).toEqual('CapabilityStatement');
+    });
+
     let currentResourceId;
     test('create', async () => {
         const res = await request(TEST_ENDPOINT).post('/fhir/Patient').send(testPatientPayload);
