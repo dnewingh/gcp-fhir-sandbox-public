@@ -3,7 +3,14 @@ const testPatientPayload = require('./sample-patient.json');
 
 const TEST_ENDPOINT = 'http://localhost:8080';
 
-describe('Test Handlers', function () {
+/*
+
+Verify behavior of all GCP fhirStore methods.
+https://cloud.google.com/healthcare-api/docs/reference/rest/v1/projects.locations.datasets.fhirStores.fhir
+
+*/
+
+describe('FHIRSTORE Methods', function () {
     test('root directory for 200 status code', async () => {
         const res = await request(TEST_ENDPOINT).get('/');
         //expect(res.header['content-type']).toBe('text/html; charset=utf-8');
@@ -33,19 +40,21 @@ describe('Test Handlers', function () {
     });
 
     test('searchGET', async () => {
-        //searchGET
         const res = await request(TEST_ENDPOINT).get('/fhir/Patient?_id=' + currentResourceId);        
         expect(res.statusCode).toBe(200);
         expect(res.body.entry[0].resource.id).toEqual(currentResourceId);
-        //expect(res.text).toEqual('Hello, World and good day');
     });
 
     test('searchPOST', async () => {
-        //searchGET
-        const res = await request(TEST_ENDPOINT).post('/fhir/Patient/_search?_id=' + currentResourceId);        
+        const res = await request(TEST_ENDPOINT).post('/fhir/Patient/_search?_id=' + currentResourceId);
         expect(res.statusCode).toBe(200);
         expect(res.body.entry[0].resource.id).toEqual(currentResourceId);
-        //expect(res.text).toEqual('Hello, World and good day');
+    });
+
+    test('search-type', async () => {
+        const res = await request(TEST_ENDPOINT).get('/fhir?_type=Patient');        
+        expect(res.statusCode).toBe(200);
+        expect(res.body.total).toBeGreaterThan(0);
     });
 
     test('update', async () => {
