@@ -1,0 +1,13 @@
+{
+    "resourceType" : "Procedure",
+    "status" : "in-progress",
+    "code" : {
+      "coding" : [
+        {
+          "system" : "http://www.ama-assn.org/go/cpt",
+          "code" : "33249"
+        }
+      ],
+      "text" : "Insertion or replacement of permanent implantable defibrillator system with transvenous lead(s), single or dual chamber"
+    }
+}

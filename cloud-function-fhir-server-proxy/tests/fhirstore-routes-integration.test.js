@@ -1,5 +1,6 @@
 const request = require('supertest');
 const testPatientPayload = require('./sample-patient.json');
+const testProcedurePayload = require('./sample-procedure.json');
 
 const TEST_ENDPOINT = 'http://localhost:8080';
 
@@ -86,19 +87,57 @@ describe('FHIRSTORE Methods', function () {
 
     let currentResourceVersion;
     test('history', async () => {
-        const res = await request(TEST_ENDPOINT)
-            .get('/fhir/Patient/'+ currentResourceId + '/_history') 
-            expect(res.statusCode).toBe(200);
-            expect(res.body.total).toEqual(3);
+        const res = await request(TEST_ENDPOINT).get('/fhir/Patient/'+ currentResourceId + '/_history') 
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.total).toEqual(3);
 
         currentResourceVersion = res.body.entry[1].resource.meta.versionId;
     });
 
     test('vread', async () => {
+        const res = await request(TEST_ENDPOINT).get('/fhir/Patient/'+ currentResourceId + '/_history/' + currentResourceVersion) 
+        
+        expect(res.statusCode).toBe(200);
+        expect(res.body.meta.versionId).toEqual(currentResourceVersion);
+    });
+
+    test('resource-purge', async () => {
+        const res = await request(TEST_ENDPOINT).delete('/fhir/Patient/'+ currentResourceId + '/$purge')        
+        expect(res.statusCode).toBe(200);
+
+        const resAfterPurge = await request(TEST_ENDPOINT).get('/fhir/Patient/'+ currentResourceId + '/_history') 
+        expect(resAfterPurge.body.total).toEqual(1);
+    });
+
+    test('updateCreate', async () => {
+        const updatedTestProcedurePayload = testProcedurePayload;
+        updatedTestProcedurePayload.subject = { reference: 'Patient/' + currentResourceId };
+        updatedTestProcedurePayload.identifier = [
+            {
+              system : "https://testing-mrn.co",
+              value : currentResourceId
+            }
+          ];
+
+        //create resource
         const res = await request(TEST_ENDPOINT)
-            .get('/fhir/Patient/'+ currentResourceId + '/_history/' + currentResourceVersion) 
-            expect(res.statusCode).toBe(200);
-            expect(res.body.meta.versionId).toEqual(currentResourceVersion);
+            .put('/fhir/Procedure?identifier='+ currentResourceId)
+            .send(updatedTestProcedurePayload);
+        expect(res.statusCode).toBe(201);
+        const createdProcedureResourceId = res.body.id;
+
+        //update resource using same method
+        updatedTestProcedurePayload.status = 'completed';
+        const resAfterUpdate = await request(TEST_ENDPOINT)
+            .put('/fhir/Procedure?identifier='+ currentResourceId)
+            .send(updatedTestProcedurePayload);
+        expect(resAfterUpdate.statusCode).toBe(200);
+
+        //verify two versions of resource exist
+        const resHistoryAfterPurge = await request(TEST_ENDPOINT).get('/fhir/Procedure/'+ createdProcedureResourceId + '/_history')
+        expect(resHistoryAfterPurge.body.total).toEqual(2);
+        
     });
 
 });
