@@ -49,7 +49,8 @@ async function queryFhirstore(req, res) {
       
   } catch (error) {
       console.log(JSON.stringify(error, null, 2));
-      res.status(400).json({message: error});
+      //res.status(400).json({message: error});
+      res.status(error.status).json(error);
   }    
 }
    

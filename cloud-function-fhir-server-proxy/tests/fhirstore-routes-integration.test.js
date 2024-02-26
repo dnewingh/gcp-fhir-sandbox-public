@@ -110,7 +110,7 @@ describe('FHIRSTORE Methods', function () {
         expect(resAfterPurge.body.total).toEqual(1);
     });
 
-    test('updateCreate', async () => {
+    test('updateCreate and conditionalUpdate', async () => {
         const updatedTestProcedurePayload = testProcedurePayload;
         updatedTestProcedurePayload.subject = { reference: 'Patient/' + currentResourceId };
         updatedTestProcedurePayload.identifier = [
@@ -128,7 +128,7 @@ describe('FHIRSTORE Methods', function () {
         const createdProcedureResourceId = res.body.id;
 
         //update resource using same method
-        updatedTestProcedurePayload.status = 'completed';
+        updatedTestProcedurePayload.status = 'in-progress';
         const resAfterUpdate = await request(TEST_ENDPOINT)
             .put('/fhir/Procedure?identifier='+ currentResourceId)
             .send(updatedTestProcedurePayload);
@@ -139,5 +139,36 @@ describe('FHIRSTORE Methods', function () {
         expect(resHistoryAfterPurge.body.total).toEqual(2);
         
     });
+
+    test('conditionalPatch', async () => {
+        const jsonPatchPayload = [{op: 'replace', path: '/status', value: 'completed'}];
+
+        const resMatchFound = await request(TEST_ENDPOINT)
+            .patch('/fhir/Procedure?identifier='+ currentResourceId)
+            .set('Content-Type', 'application/json-patch+json')
+            .send(jsonPatchPayload);
+        
+        //console.log(JSON.stringify(res, null, 2));
+        expect(resMatchFound.statusCode).toBe(200);
+
+        const resMatchNotFound = await request(TEST_ENDPOINT)
+            .patch('/fhir/Procedure?identifier='+ currentResourceId + '999')
+            .set('Content-Type', 'application/json-patch+json')
+            .send(jsonPatchPayload);
+        
+        //console.log(JSON.stringify(resMatchNotFound, null, 2));
+        expect(resMatchNotFound.statusCode).toBe(404);
+        
+    });
+
+    test('patient-everything', async () => {
+        const res = await request(TEST_ENDPOINT).get('/fhir/Patient/' + currentResourceId + '/$everything');
+        //expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+        //console.log(JSON.stringify(res.body, null, 2));
+        expect(res.statusCode).toBe(200);
+        expect(res.body.total).toEqual(2);
+    });
+
+    
 
 });
