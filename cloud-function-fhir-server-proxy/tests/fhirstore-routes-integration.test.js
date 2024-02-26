@@ -169,6 +169,14 @@ describe('FHIRSTORE Methods', function () {
         expect(res.body.total).toEqual(2);
     });
 
+    test('conditionalDelete', async () => {
+        const res = await request(TEST_ENDPOINT).delete('/fhir/Procedure?identifier='+ currentResourceId)
+        expect(res.statusCode).toBe(200);        
+    });
     
+    test('delete', async () => {
+        const res = await request(TEST_ENDPOINT).delete('/fhir/Patient/'+ currentResourceId)
+        expect(res.statusCode).toBe(200);        
+    });
 
 });
