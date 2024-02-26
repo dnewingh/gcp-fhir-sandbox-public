@@ -1,0 +1,33 @@
+{
+    "resourceType": "Bundle",
+    "type": "transaction",
+    "entry":[
+      {
+        "request": {
+          "method":"POST",
+          "url":"Patient"
+        },
+        "fullUrl": "urn:uuid:PATIENT-123",
+        "resource": {
+          "resourceType":"Patient",
+          "gender":"male"
+        }
+      },
+      {
+        "request": {
+          "method":"POST",
+          "url":"Observation"
+        },
+        "resource": {
+          "resourceType":"Observation",
+          "subject": {
+            "reference": "urn:uuid:PATIENT-123"
+          },
+          "status":"preliminary",
+          "code": {
+            "text":"heart rate"
+          }
+        }
+      }
+    ]
+  }

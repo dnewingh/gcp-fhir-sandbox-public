@@ -1,6 +1,8 @@
 const request = require('supertest');
+const {v4: uuidv4} = require('uuid');
 const testPatientPayload = require('./sample-patient.json');
 const testProcedurePayload = require('./sample-procedure.json');
+const testExecuteBundlePayload = require('./sample-bundle.json');
 
 const TEST_ENDPOINT = 'http://localhost:8080';
 
@@ -177,6 +179,31 @@ describe('FHIRSTORE Methods', function () {
     test('delete', async () => {
         const res = await request(TEST_ENDPOINT).delete('/fhir/Patient/'+ currentResourceId)
         expect(res.statusCode).toBe(200);        
+    });
+
+    test('executeBundle', async () => {
+        const testId = uuidv4();
+        const testIdentifier = [
+            {
+                system : "https://testing-mrn.co",
+                value : testId
+            }
+        ];
+        const updatedTestBundlePayload = testExecuteBundlePayload;
+        updatedTestBundlePayload.entry[0].resource.identifier = testIdentifier;
+        updatedTestBundlePayload.entry[1].resource.identifier = testIdentifier;
+        
+        const res = await request(TEST_ENDPOINT)
+            .post('/fhir')
+            .send(updatedTestBundlePayload);
+        //console.log(JSON.stringify(res.body, null, 2));
+        expect(res.statusCode).toBe(200);
+        
+        //clean-up by deleting resources
+        const resAfterPatientDelete = await request(TEST_ENDPOINT).delete('/fhir/Patient?identifier='+ testId)
+        expect(resAfterPatientDelete.statusCode).toBe(200);
+        const resAfterObservationDelete = await request(TEST_ENDPOINT).delete('/fhir/Observation?identifier='+ testId)
+        expect(resAfterObservationDelete.statusCode).toBe(200);
     });
 
 });
