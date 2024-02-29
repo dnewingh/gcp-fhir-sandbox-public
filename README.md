@@ -11,13 +11,8 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 - ability to setup subscriptions
 - ability to launch via SMART on FHIR OAuth workflow
 
-## GCP FHIR sandbox components list
-- Healthcare API
-- Pub/Sub
-- Big Query
-- Cloud Function
-- Google Sheets
-- Cloud Storage
+## Architecture
+![Architecture Diagram](docs/gcp-fhir-sandbox-architecture-diagram.png)
 
 # Contributing
 All are welcome.
