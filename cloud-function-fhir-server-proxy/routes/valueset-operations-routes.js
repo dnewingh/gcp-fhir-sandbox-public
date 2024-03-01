@@ -32,7 +32,6 @@ function expandValueSet(req, res) {
    
 //define routes
 router.get("/:resourceId/([\$])expand", expandValueSet);
-router.get("/", (req, res) => res.json({key: 'value'}));
 
 //export the configured router object
 module.exports = router;
