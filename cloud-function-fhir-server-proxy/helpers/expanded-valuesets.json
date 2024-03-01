@@ -1,0 +1,102 @@
+{
+    "entry": [
+        {
+            "resourceType": "ValueSet",
+            "id": "procedure-category",
+            "meta": {
+              "extension": [
+                {
+                  "url": "http://hapifhir.io/fhir/StructureDefinition/valueset-expansion-message",
+                  "valueString": "ValueSet was expanded using an expansion that was pre-calculated at (unknown)"
+                }
+              ],
+              "versionId": "1"
+            },
+            "url": "http://hl7.org/fhir/ValueSet/procedure-category",
+            "status": "active",
+            "compose": {
+              "include": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "concept": [
+                    {
+                      "code": "24642003"
+                    },
+                    {
+                      "code": "409063005"
+                    },
+                    {
+                      "code": "409073007"
+                    },
+                    {
+                      "code": "387713003"
+                    },
+                    {
+                      "code": "103693007"
+                    },
+                    {
+                      "code": "46947000"
+                    },
+                    {
+                      "code": "410606002"
+                    }
+                  ]
+                }
+              ]
+            },
+            "expansion": {
+              "identifier": "cc296fd8-1b28-4f9e-98dd-70bc6b9e09f5",
+              "timestamp": "2024-02-29T16:47:12+00:00",
+              "total": 7,
+              "offset": 0,
+              "parameter": [
+                {
+                  "name": "offset",
+                  "valueInteger": 0
+                },
+                {
+                  "name": "count",
+                  "valueInteger": 1000
+                }
+              ],
+              "contains": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "46947000",
+                  "display": "Chiropractic manipulation (procedure)"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "103693007",
+                  "display": "Diagnostic procedure (procedure)"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "24642003",
+                  "display": "Psychiatry procedure or service (procedure)"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "410606002",
+                  "display": "Social service procedure"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "387713003",
+                  "display": "Surgical procedure"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "409063005",
+                  "display": "Counselling"
+                },
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "409073007",
+                  "display": "Education"
+                }
+              ]
+            }
+          }
+    ]
+}
