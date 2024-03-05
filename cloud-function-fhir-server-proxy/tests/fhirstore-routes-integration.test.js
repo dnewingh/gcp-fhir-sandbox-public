@@ -112,6 +112,7 @@ describe('FHIRSTORE Methods', function () {
         expect(resAfterPurge.body.total).toEqual(1);
     });
 
+    //To ensure variable reassignments are passed down properly the test runner should be configured to run integration tests sequentially.  E.g. jest --runInBand
     test('updateCreate and conditionalUpdate', async () => {
         const updatedTestProcedurePayload = testProcedurePayload;
         updatedTestProcedurePayload.subject = { reference: 'Patient/' + currentResourceId };

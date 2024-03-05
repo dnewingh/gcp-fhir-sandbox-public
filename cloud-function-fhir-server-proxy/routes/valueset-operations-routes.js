@@ -10,10 +10,10 @@ const router = express.Router();
 //define handlers
 function expandValueSet(req, res) {
     //TO DO: Implement proper valueset expansion service
-    const filteredValueSets = expandedValueSets.entry.filter((el) => el.id == req.params.resourceId);
+    const filteredValueSets = expandedValueSets.entry.find((el) => el.id == req.params.resourceId);
     
-    if (filteredValueSets.length == 1) {
-        res.json(filteredValueSets[0]);
+    if (filteredValueSets) {
+        res.json(filteredValueSets);
     } else {
         const operationOutcome = {
             resourceType: 'OperationOutcome',
