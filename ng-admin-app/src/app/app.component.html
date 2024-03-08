@@ -1,37 +1,41 @@
-<main>
-  <section>
-    <p>Table is just a mapping of objects to table rows with <code>&#64;for</code></p>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Country</th>
-          <th scope="col">Area</th>
-          <th scope="col">Population</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (country of countries; track country.name; let i = $index) {
+<div class="container">
+  <main>
+    <section>
+      <ngb-progressbar class="mb-3" type="success" textType="white" [value]="25" [showValue]="true" />
+      
+      <p>Table is just a mapping of objects to table rows with <code>&#64;for</code></p>
+  
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <th scope="row">{{ i + 1 }}</th>
-            <td>
-              <img
-                [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag"
-                [alt]="'The flag of ' + country.name"
-                class="me-2"
-                style="width: 20px"
-              />
-              {{ country.name }}
-            </td>
-            <td>{{ country.area | number }}</td>
-            <td>{{ country.population | number }}</td>
+            <th scope="col">#</th>
+            <th scope="col">Country</th>
+            <th scope="col">Area</th>
+            <th scope="col">Population</th>
           </tr>
-        }
-      </tbody>
-    </table>
-  </section>
-</main>
+        </thead>
+        <tbody>
+          @for (country of countries; track country.name; let i = $index) {
+            <tr>
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <img
+                  [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag"
+                  [alt]="'The flag of ' + country.name"
+                  class="me-2"
+                  style="width: 20px"
+                />
+                {{ country.name }}
+              </td>
+              <td>{{ country.area | number }}</td>
+              <td>{{ country.population | number }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->

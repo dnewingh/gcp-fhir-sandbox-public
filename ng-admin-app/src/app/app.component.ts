@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 interface Country {
 	name: string;
@@ -39,8 +40,20 @@ const COUNTRIES: Country[] = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,DecimalPipe],
-  templateUrl: './app.component.html',
+  imports: [RouterOutlet,DecimalPipe, NgbProgressbarModule],
+  template: `
+	<header>
+		<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+			<div class="container">
+				<a class="navbar-brand" href="#">Admin App</a>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<router-outlet></router-outlet>
+	</main>
+  `,
+  //templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
