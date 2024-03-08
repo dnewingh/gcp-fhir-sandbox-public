@@ -23,7 +23,7 @@
     - `fix`:  A bug fix (e.g., `fix: Fix bugs introduced by ractoring X`)
     - `feat`: A new feature (e.g., `feat(pdfUtility): Implement ability to export redacted PDFs`)
     - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-    - `refactor:` A code change that neither fixes a bug nor adds a feature.  Also used for performance improvements (e.g., `refactor: Clean up X`)
+    - `refac:` A code change that neither fixes a bug nor adds a feature.  Also used for performance improvements (e.g., `refac: Clean up X`)
     - `infra:` An infrastructure changes (e.g., `infra: Enable cloudfront for X`)
     - `build`: Changes that affect the build system or external dependencies
   - A scope MAY be provided after a type. A scope MUST consist of a noun describing a section of the codebase surrounded by parenthesis.  Often times the component or helper  name can be used, e.g., `style(BaseFooter)` `feat(pdfUtility)`
