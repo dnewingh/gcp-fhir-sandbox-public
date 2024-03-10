@@ -3,11 +3,9 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 
 ## Use cases to support connetathon POCs
 - ability to create and load mock data onto the server with a spreadsheet UI
-    - 2/15: completed POC with ETL scripts for Patients and Conditions and verified imported successfully.
 - public FHIR server (open endpoints)
-    - 2/26: completed POC for all fhirStore methods.  verified with integration tests.
-- ability to extend FHIR server capability by adding custom operations on FHIR resources. demonstrate with terminology $expand operations
-- ability to analyze FHIR with SQL queries
+- ability to extend FHIR server capability by adding custom operations on FHIR resources
+- ability to analyze FHIR data with SQL queries
 - ability to setup subscriptions
 - ability to launch via SMART on FHIR OAuth workflow
 
@@ -20,10 +18,6 @@ All are welcome.
 # License
 MIT
 
-# Notes
-- Can setup a cloud function to act as a proxy to the fhir-store
-- Requires running the cloud function as a service account who has been added as a principle with FHIR resource editor role on the fhir-store resource
-
 # References
 - GCP Architecture Diagramming Tool: https://cloud.google.com/blog/topics/developers-practitioners/introducing-google-cloud-architecture-diagramming-tool
 https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoints-for-one-google-cloud-function
@@ -33,4 +27,4 @@ https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoin
 - smart-launcher: clean interface but only works with smarthealthit public endpoints
     - could possibly substitute with a HAPI server
 - Logica sandbox -> distracting EHR launcher
-- Epic EHR sandbox -> permissions available on read-only APIs only
+- Epic EHR sandbox -> read-only permissions available
