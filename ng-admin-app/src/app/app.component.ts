@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppBarComponent } from './app-bar/app-bar.component';
+import { DataService } from './service/data.service';
+import { Comment } from './comment';
+import { JsonPipe } from '@angular/common';
 
 interface Country {
 	name: string;
@@ -41,10 +43,12 @@ const COUNTRIES: Country[] = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppBarComponent, RouterOutlet, DecimalPipe, NgbProgressbarModule],
+  imports: [AppBarComponent, RouterOutlet, JsonPipe, NgbProgressbarModule],
   template: `
 	<app-app-bar></app-app-bar>	
-	<router-outlet></router-outlet>	
+	<router-outlet></router-outlet>
+	<p>API Data:</p>
+	<pre>{{ comments | json }}</pre>	
   `,
   //templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -52,4 +56,16 @@ const COUNTRIES: Country[] = [
 export class AppComponent {
   title = 'ng-admin-app';
   countries = COUNTRIES;
+  comments: Comment[] = [];
+
+  constructor(private data_service: DataService) {}
+
+  ngOnInit() {
+	this.data_service.getAllComments().subscribe({
+		next: (comments) => {
+			this.comments = comments;
+			console.log(comments);
+		}
+	})
+  }
 }
