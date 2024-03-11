@@ -1,0 +1,3 @@
+- Standalone Component vs NgModules
+    - https://www.youtube.com/watch?v=rproG1_TCek&t
+    - https://www.youtube.com/watch?v=RPRbkTl38vw&t
