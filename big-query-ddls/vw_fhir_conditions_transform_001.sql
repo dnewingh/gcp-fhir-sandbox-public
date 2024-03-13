@@ -1,5 +1,6 @@
-SELECT 
-resourceType
+SELECT
+publishable 
+, resourceType
 , mockDataRecordId as id
 , mock_data.CreatesSingleEntryCodeableConceptObject(clinicalStatusCodingSystem, null, clinicalStatusCodingCode, clinicalStatusCodingDisplay, null, clinicalStatusCodingDisplay) as clinicalStatus
 , mock_data.CreatesSingleEntryCodeableConceptObject(verificationStatusCodingSystem, null, verificationStatusCodingCode, verificationStatusCodingDisplay, null, verificationStatusCodingDisplay) as verificationStatus

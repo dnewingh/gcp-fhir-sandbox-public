@@ -1,5 +1,6 @@
 SELECT 
-resourceType
+publishable
+, resourceType
 , mockDataRecordId as id
 , STRUCT(
     raceExtensionURL as url
