@@ -4,11 +4,23 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "functions-framework --target=app --function-signature-type=http",
+    "dev": "nodemon --exec npm run start",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage --runInBand",
+    "ci": "start-server-and-test http://localhost:8080",
+    "tdd": "nodemon --exec \"npm run ci\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/bigquery": "^7.5.0"
+    "@google-cloud/bigquery": "^7.5.0",
+    "@google-cloud/functions-framework": "^3.3.0",
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.3",
+    "start-server-and-test": "^2.0.3",
+    "supertest": "^6.3.4"
   }
 }
