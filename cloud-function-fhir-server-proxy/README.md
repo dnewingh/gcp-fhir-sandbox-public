@@ -23,7 +23,7 @@ https://cloud.google.com/sdk/docs/authorizing
 gcloud auth login --no-launch-browser
 ```
 
-Confirm glcoud CLI configuration.
+Confirm glcoud CLI configuration (default project etc).
 ```
 gcloud config list
 ```
@@ -35,7 +35,7 @@ gcloud init --no-launch-browser---
 
 Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.
 ```
-gcloud functions deploy nodejs-http-function \
+gcloud functions deploy nodejs-http-fn-fhirstore-proxy-service \
   --gen2 \
   --runtime=nodejs20 \
   --entry-point=app \
