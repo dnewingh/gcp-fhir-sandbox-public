@@ -1,3 +1,6 @@
+# To Do
+- Figure out approach for setting apiUrl in bigquery-mock-data service using environment variables
+
 # NgAdminApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
