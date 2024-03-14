@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BigqueryMockDataService {
-  private apiUrl = 'http://localhost:3000/';
-  //private apiUrl = 'https://us-central1-gcp-fhir-sandbox-lab-001.cloudfunctions.net/nodejs-http-fn-biqquery-service/bigquery/';
-  //private apiUrl = 'http://localhost:8080/bigquery/';
+  private apiUrl = environment.bigQueryServiceUrl;
   constructor(private http: HttpClient) { }
   getMockData(tableName: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + tableName);
