@@ -1,3 +1,6 @@
+# To Do
+- Figure out approach for setting environment variables for project Id
+
 # Setting up local development environment
 Note: ADC scopes to Google Drive must be explicitly requested.  Typical ADC login only provides Cloud Platform scopes.
 ```

@@ -7,7 +7,7 @@ const bigqueryRoutes = require("./routes/bigquery-routes");
 // Create an Express object and routes (in order)
 const app = express();
 app.use('/bigquery/', bigqueryRoutes);
-app.use('/', (req, res) => { res.status(200).send('Hello World'); })  //root requires 200 response to trigger automated testing with start-server-and-test package
+app.get('/', (req, res) => { res.status(200).send('Hello World'); })  //root requires 200 response to trigger automated testing with start-server-and-test package
 
 //handle route not found
 app.use((req, res) => { res.status(404).send('Bad URL'); });
