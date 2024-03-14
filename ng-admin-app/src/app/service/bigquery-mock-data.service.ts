@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BigqueryMockDataService {
-  private apiUrl = 'https://us-central1-gcp-fhir-sandbox-lab-001.cloudfunctions.net/nodejs-http-fn-biqquery-service/bigquery/';
+  private apiUrl = 'http://localhost:3000/';
+  //private apiUrl = 'https://us-central1-gcp-fhir-sandbox-lab-001.cloudfunctions.net/nodejs-http-fn-biqquery-service/bigquery/';
   //private apiUrl = 'http://localhost:8080/bigquery/';
   constructor(private http: HttpClient) { }
   getMockData(tableName: string): Observable<any[]> {
