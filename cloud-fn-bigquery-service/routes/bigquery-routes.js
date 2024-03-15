@@ -51,7 +51,7 @@ async function queryBigQuery(req, res) {
   const job = bigquery.job(jobResponse.data.jobReference.jobId);
 
   // Wait for the query to finish
-  const rawResults = await job.getQueryResults();
+  const [rawResults] = await job.getQueryResults();
 
   // Cleanup nested strings in query result
   const processedResults = parseNestedStringsFromArrayOfObjects(rawResults);
