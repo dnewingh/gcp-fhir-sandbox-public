@@ -40,10 +40,10 @@ publishable
       [addressStreet] as line
       , addressCity as city
       , addressState as state
-      , addressPostalCode as postalCode
+      , CAST(addressPostalCode AS string) as postalCode
       , STRUCT(
-          addressPeriodStart as start
-          , addressPeriodEnd as `end`
+          CAST(addressPeriodStart AS string) as start
+          , CAST(addressPeriodEnd AS string) as `end`
         ) as period
     )
   ] as address
