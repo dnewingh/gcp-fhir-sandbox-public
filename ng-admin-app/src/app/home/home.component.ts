@@ -1,25 +1,17 @@
 import { Component } from '@angular/core';
-import { JsonPipe } from '@angular/common';
+import { HomeMockDataTableComponent } from '../home-mock-data-table/home-mock-data-table.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [HomeMockDataTableComponent],
   template: `
     <main class="container">
-      <p>
-        home works!
-      </p>
-      <div>
-        <p>Without JSON pipe:</p>
-        <pre>{{ testObject }}</pre>
-        <p>With JSON pipe:</p>
-        <pre>{{ testObject | json }}</pre>
-      </div>
+      <app-home-mock-data-table></app-home-mock-data-table>
     </main>
   `,
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  testObject: Object = {foo: 'bar', baz: 'qux', nested: {xyz: 3, numbers: [1, 2, 3, 4, 5]}};
+  
 }
