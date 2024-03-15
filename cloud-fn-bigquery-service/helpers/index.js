@@ -22,7 +22,23 @@ function parseJSONWithNestedStrings(jsonString) {
     return parseNestedStrings(parsed);
 }
 
+function dropNullProperties(obj) {
+    for (const key in obj) {
+        if (obj[key] === null) {
+            delete obj[key];
+        } else if (typeof obj[key] === 'object') {
+            dropNullProperties(obj[key]); // Recursively call dropNullProperties
+            // Check if the object became empty after recursive deletion
+            if (Object.keys(obj[key]).length === 0) {
+                delete obj[key];
+            }
+        }
+    }
+    return obj;
+}
+
 module.exports = {
     parseNestedStrings,
-    parseNestedStringsFromArrayOfObjects
+    parseNestedStringsFromArrayOfObjects,
+    dropNullProperties
   };
