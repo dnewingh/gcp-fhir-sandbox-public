@@ -1,5 +1,6 @@
 //import 3rd party packages and libraries
 const express = require('express');
+const cors = require('cors');
 
 //import our own files
 const userRoutes = require("./routes/user-routes");
@@ -9,6 +10,7 @@ const testRoutes = require("./routes/test-routes");
 
 // Create an Express object and routes (in order)
 const app = express();
+app.use(cors());
 app.use('/users/', userRoutes);
 app.use('/fhir/ValueSet', valueSetOperationsRoutes);
 app.use('/fhir/', fhirstoreRoutes);
