@@ -37,8 +37,20 @@ function dropNullProperties(obj) {
     return obj;
 }
 
+function convertPostalCodeToString(obj) {
+    for (const key in obj) {
+        if (key === 'postalCode' && typeof obj[key] === 'number') {
+            obj[key] = obj[key].toString(); // Convert number to string
+        } else if (typeof obj[key] === 'object') {
+            convertPostalCodeToString(obj[key]); // Recursively call convertPostalCodeToString
+        }
+    }
+    return obj;
+}
+
 module.exports = {
     parseNestedStrings,
     parseNestedStringsFromArrayOfObjects,
-    dropNullProperties
+    dropNullProperties,
+    convertPostalCodeToString
   };
