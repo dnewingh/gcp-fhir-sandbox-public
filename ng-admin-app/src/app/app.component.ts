@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppBarComponent } from './app-bar/app-bar.component';
 import { JsonPipe } from '@angular/common';
-import { BigqueryMockDataService } from './service/bigquery-mock-data.service';
+import { BigqueryMockDataService } from './services/bigquery-mock-data.service';
 
 @Component({
   selector: 'app-root',
