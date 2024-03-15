@@ -13,6 +13,7 @@ const express = require("express");
 // Import libraries
 const {GoogleAuth} = require('google-auth-library');
 const {BigQuery} = require('@google-cloud/bigquery');
+const { parseNestedStringsFromArrayOfObjects } = require("../helpers");
 
 // Initialize constants
 const bigqueryApiBaseUrl = 'https://bigquery.googleapis.com/bigquery/v2/projects/gcp-fhir-sandbox-lab-001/'
@@ -50,13 +51,16 @@ async function queryBigQuery(req, res) {
   const job = bigquery.job(jobResponse.data.jobReference.jobId);
 
   // Wait for the query to finish
-  const [rows] = await job.getQueryResults();
+  const rawResults = await job.getQueryResults();
+
+  // Cleanup nested strings in query result
+  const processedResults = parseNestedStringsFromArrayOfObjects(rawResults);
 
   // Print the results to console
   //console.log('Rows:');
   //rows.forEach(row => console.log(JSON.stringify(row, null, 2)));
 
-  res.json(rows);
+  res.json(processedResults);
 }
 
 // Initialize Router object from Express and define routes
