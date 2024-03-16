@@ -29,7 +29,7 @@ async function queryFhirstore(req, res) {
       const requestOptions = createRequestOptionsForHealthcareAPI(req);
       //console.log(requestOptions);
       const response = await client.request(requestOptions);
-      //console.log(JSON.stringify(response, null, 2));
+      console.log(JSON.stringify(response, null, 2));
 
       //determine if data type in response contains blob and handle accordingly
       const responseDataToString = response.data.toString();
@@ -48,17 +48,14 @@ async function queryFhirstore(req, res) {
       res.status(response.status).json(responseDataJsObect);
       
   } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
+      //if (res.status=400) {}
+      //console.log(JSON.stringify(error, null, 2));
       //res.status(400).json({message: error});
       res.status(error.status).json(error);
   }    
 }
    
 //define routes
-//router.get("/:resourceType/:resourceId", getResourceById);
-//router.get("/:resourceType", searchResources);
-//router.post("/:resourceType", searchResources);
-//router.get("/", (req, res) => res.redirect('./metadata'));
 router.all("*", queryFhirstore);
 
 //export the configured router object
