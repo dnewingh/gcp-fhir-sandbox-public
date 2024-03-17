@@ -29,8 +29,10 @@ async function queryFhirstore(req, res) {
       const requestOptions = createRequestOptionsForHealthcareAPI(req);
       //console.log(requestOptions);
       const response = await client.request(requestOptions);
-      console.log(JSON.stringify(response, null, 2));
+      //console.log(JSON.stringify(response, null, 2));
+      res.status(response.status).type('application/fhir+json').send(response.data);
 
+      /*
       //determine if data type in response contains blob and handle accordingly
       const responseDataToString = response.data.toString();
       //console.log(responseDataToString);
@@ -46,12 +48,18 @@ async function queryFhirstore(req, res) {
       
       //console.log(resonseDataJsObect);
       res.status(response.status).json(responseDataJsObect);
+      */
       
   } catch (error) {
-      //if (res.status=400) {}
+      if (error.status=400) {
+        console.log(JSON.stringify(error, null, 2));
+        res.status(error.status).send(error.response.data);
+      } else {
+        res.status(error.status).json(error);
+      }
       //console.log(JSON.stringify(error, null, 2));
       //res.status(400).json({message: error});
-      res.status(error.status).json(error);
+      
   }    
 }
    
