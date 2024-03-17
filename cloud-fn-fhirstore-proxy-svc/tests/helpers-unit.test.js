@@ -10,7 +10,9 @@ describe('Test Helpers', function () {
 
         const expectedResult = {
             url: req.forwardingUrl,
-            method: req.method
+            method: req.method,
+            responseType: 'text',
+            headers: {"Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
@@ -28,7 +30,9 @@ describe('Test Helpers', function () {
         const expectedResult = {
             url: req.forwardingUrl,
             method: req.method,
-            data: { resourceType: 'test'}
+            responseType: 'text',
+            data: { resourceType: 'test'},
+            headers: {"Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
@@ -46,8 +50,9 @@ describe('Test Helpers', function () {
         const expectedResult = {
             url: req.forwardingUrl,
             method: req.method,
+            responseType: 'text',
             data: { resourceType: 'test'},
-            headers: {"Content-Type": "application/json-patch+json"}
+            headers: {"Content-Type": "application/json-patch+json", "Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
