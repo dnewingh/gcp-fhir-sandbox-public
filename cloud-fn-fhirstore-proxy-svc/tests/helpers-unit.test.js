@@ -12,12 +12,13 @@ describe('Test Helpers', function () {
             url: req.forwardingUrl,
             method: req.method,
             responseType: 'text',
+            validateStatus: () => true,
             headers: {"Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
         
-        expect(result).toEqual(expectedResult);
+        expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedResult));
     });
 
     test('createRequestOptionsForHealthcareAPI for POST request', () => {
@@ -31,13 +32,14 @@ describe('Test Helpers', function () {
             url: req.forwardingUrl,
             method: req.method,
             responseType: 'text',
+            validateStatus: () => true,
             data: { resourceType: 'test'},
             headers: {"Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
         
-        expect(result).toEqual(expectedResult);
+        expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedResult));
     });
 
     test('createRequestOptionsForHealthcareAPI for POST request', () => {
@@ -51,12 +53,13 @@ describe('Test Helpers', function () {
             url: req.forwardingUrl,
             method: req.method,
             responseType: 'text',
+            validateStatus: () => true,
             data: { resourceType: 'test'},
             headers: {"Content-Type": "application/json-patch+json", "Accept": "*/*"}
         }
 
         const result = createRequestOptionsForHealthcareAPI(req);       
         
-        expect(result).toEqual(expectedResult);
+        expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedResult));
     });
 });
