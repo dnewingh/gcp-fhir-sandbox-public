@@ -1,6 +1,7 @@
 const request = require('supertest');
 const {v4: uuidv4} = require('uuid');
 const testPatientPayload = require('./sample-patient.json');
+const testInvalidPatientPayload = require('./sample-invalid-patient.json');
 const testProcedurePayload = require('./sample-procedure.json');
 const testExecuteBundlePayload = require('./sample-bundle.json');
 
@@ -205,6 +206,12 @@ describe('FHIRSTORE Methods', function () {
         expect(resAfterPatientDelete.statusCode).toBe(200);
         const resAfterObservationDelete = await request(TEST_ENDPOINT).delete('/fhir/Observation?identifier='+ testId)
         expect(resAfterObservationDelete.statusCode).toBe(200);
+    });
+
+    test('resource-validate', async () => {
+        const res = await request(TEST_ENDPOINT).post('/fhir/Patient/$validate').send(testInvalidPatientPayload);
+        expect(res.statusCode).toBe(400);
+        expect(res.body.resourceType).toEqual('OperationOutcome');        
     });
 
 });
