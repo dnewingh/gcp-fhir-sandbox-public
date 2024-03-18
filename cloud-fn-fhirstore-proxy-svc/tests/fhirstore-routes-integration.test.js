@@ -214,4 +214,9 @@ describe('FHIRSTORE Methods', function () {
         expect(res.body.resourceType).toEqual('OperationOutcome');        
     });
 
+    test('404', async () => {
+        const res = await request(TEST_ENDPOINT).get('/123');
+        expect(res.statusCode).toBe(404);
+    });
+
 });
