@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-interface RequestLogEntry {
+export interface RequestLogsEntry {
   resourceType: string;
   mockResourceId: string;
   requestMethod: string;
@@ -13,12 +13,12 @@ interface RequestLogEntry {
 @Injectable({
   providedIn: 'root'
 })
-export class RequestsLogService {
-  private requestsLog: RequestLogEntry[] = [];
+export class RequestLogsService {
+  private requestsLog: RequestLogsEntry[] = [];
 
   constructor() { }
 
-  addLog(entry: RequestLogEntry) {
+  addLog(entry: RequestLogsEntry) {
     this.requestsLog.push(entry);
   }
 

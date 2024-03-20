@@ -3,7 +3,7 @@ import { JsonPipe } from '@angular/common';
 import { BigqueryMockDataService } from '../services/bigquery-mock-data.service';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { FhirstoreDataService } from '../services/fhirstore-data.service';
-import { RequestsLogService } from '../services/requests-log.service';
+import { RequestLogsService } from '../services/request-logs.service';
 
 @Component({
   selector: 'app-home-mock-data-table',
@@ -52,7 +52,7 @@ export class HomeMockDataTableComponent {
   @Input() mockDataTableName = 'MockDataTableName'
   mockData?: any[];
 
-  constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService, private RequestsLogService: RequestsLogService) {}
+  constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService, private RequestLogsService: RequestLogsService) {}
 
   ngOnInit() {
     this.BigqueryMockDataService.getMockData(this.mockDataTableName).subscribe(
@@ -78,7 +78,7 @@ export class HomeMockDataTableComponent {
     this.FhirstoreDataService.postResource(resourceType + '/$validate', resourcePayload).subscribe(
       {
         next: (data) => {
-          this.RequestsLogService.addLog(
+          this.RequestLogsService.addLog(
             {
               resourceType: resourceType,
               mockResourceId: '123',
@@ -90,10 +90,10 @@ export class HomeMockDataTableComponent {
             }
           );
           console.log(data);
-          console.log(this.RequestsLogService.getLogs());
+          console.log(this.RequestLogsService.getLogs());
         },
         error: (error) => {
-          this.RequestsLogService.addLog(
+          this.RequestLogsService.addLog(
             {
               resourceType: resourceType,
               mockResourceId: '123',
@@ -105,7 +105,7 @@ export class HomeMockDataTableComponent {
             }
           );
           console.log(error);
-          console.log(this.RequestsLogService.getLogs());
+          console.log(this.RequestLogsService.getLogs());
         },
         complete: () => console.log('resource validated.')
       }
