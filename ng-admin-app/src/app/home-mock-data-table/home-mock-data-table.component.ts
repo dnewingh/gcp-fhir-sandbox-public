@@ -3,6 +3,7 @@ import { JsonPipe } from '@angular/common';
 import { BigqueryMockDataService } from '../services/bigquery-mock-data.service';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { FhirstoreDataService } from '../services/fhirstore-data.service';
+import { RequestsLogService } from '../services/requests-log.service';
 
 @Component({
   selector: 'app-home-mock-data-table',
@@ -36,6 +37,7 @@ import { FhirstoreDataService } from '../services/fhirstore-data.service';
             </td>
             <td>
               <button type="button" class="btn btn-primary" (click)="postMockData(resourceType, mockResource)">Post</button>
+              <button type="button" class="btn btn-primary ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
             </td>
           </tr>
         }
@@ -50,7 +52,7 @@ export class HomeMockDataTableComponent {
   @Input() mockDataTableName = 'MockDataTableName'
   mockData?: any[];
 
-  constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService) {}
+  constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService, private RequestsLogService: RequestsLogService) {}
 
   ngOnInit() {
     this.BigqueryMockDataService.getMockData(this.mockDataTableName).subscribe(
@@ -68,6 +70,44 @@ export class HomeMockDataTableComponent {
         next: data => console.log(data),
         error: error => console.error(error),
         complete: () => console.log('resource posted.')
+      }
+    )    
+  }
+
+  validateMockData(resourceType: string, resourcePayload: object) {
+    this.FhirstoreDataService.postResource(resourceType + '/$validate', resourcePayload).subscribe(
+      {
+        next: (data) => {
+          this.RequestsLogService.addLog(
+            {
+              resourceType: resourceType,
+              mockResourceId: '123',
+              requestMethod: 'POST',
+              requestTimestamp: new Date(),
+              relativeUrl: resourceType + '/$validate',
+              responseStatus: data.status,
+              responseBody: data.body
+            }
+          );
+          console.log(data);
+          console.log(this.RequestsLogService.getLogs());
+        },
+        error: (error) => {
+          this.RequestsLogService.addLog(
+            {
+              resourceType: resourceType,
+              mockResourceId: '123',
+              requestMethod: 'POST',
+              requestTimestamp: new Date(),
+              relativeUrl: resourceType + '/$validate',
+              responseStatus: error.status,
+              responseBody: error.error
+            }
+          );
+          console.log(error);
+          console.log(this.RequestsLogService.getLogs());
+        },
+        complete: () => console.log('resource validated.')
       }
     )    
   }
