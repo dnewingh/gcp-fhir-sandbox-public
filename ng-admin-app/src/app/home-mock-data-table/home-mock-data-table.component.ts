@@ -25,7 +25,7 @@ import { RequestLogsService } from '../services/request-logs.service';
               <div ngbAccordion>
                 <div ngbAccordionItem>
                   <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton>{{ mockResource.id }}</button>
+                    <button ngbAccordionButton class="p-1">{{ mockResource.id }}</button>
                   </h2>
                   <div ngbAccordionCollapse>
                     <div ngbAccordionBody>
@@ -36,8 +36,8 @@ import { RequestLogsService } from '../services/request-logs.service';
               </div>  
             </td>
             <td>
-              <button type="button" class="btn btn-primary" (click)="postMockData(resourceType, mockResource)">Post</button>
-              <button type="button" class="btn btn-primary ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
+              <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">Post</button>
+              <button type="button" class="btn btn-primary btn-sm ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
             </td>
           </tr>
         }

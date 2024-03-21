@@ -35,11 +35,7 @@ import { DatePipe, JsonPipe } from '@angular/common';
       
     
   `,
-  styles: `
-    .custom-header::after {
-      content: none;
-    }
-  `
+  styles: ``
 })
 export class RequestLogsComponent {
   requestLogs: RequestLogsEntry[] = [];
