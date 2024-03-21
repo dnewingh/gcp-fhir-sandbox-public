@@ -28,3 +28,8 @@ https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoin
     - could possibly substitute with a HAPI server
 - Logica sandbox -> distracting EHR launcher
 - Epic EHR sandbox -> read-only permissions available
+
+# To Do
+- Ng admin app with ability to post/put
+- Shell script for cli setup and implementation of environment variables
+- Blog post
