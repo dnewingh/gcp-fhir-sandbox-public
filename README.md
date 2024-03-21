@@ -31,5 +31,7 @@ https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoin
 
 # To Do
 - Ng admin app with ability to post/put
+    - test if execute bundle preserves resourceId
+- Update architecture illustration with Ng data steward app
 - Shell script for cli setup and implementation of environment variables
 - Blog post

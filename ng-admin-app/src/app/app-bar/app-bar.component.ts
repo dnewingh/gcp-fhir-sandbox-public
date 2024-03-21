@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
     <header>
       <nav class="navbar bg-dark border-bottom border-body mb-3" data-bs-theme="dark">
         <div class="container">
-          <a class="navbar-brand" href="#">Admin App</a>
+          <a class="navbar-brand" href="#">Data Steward App</a>
         </div>
       </nav>
     </header>
