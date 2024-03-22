@@ -6,7 +6,7 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 - public FHIR server (open endpoints)
 - ability to extend FHIR server capability by adding custom operations on FHIR resources
 - ability to analyze FHIR data with SQL queries
-- ability to setup subscriptions
+- ability to setup subscriptions (TO DO)
 - ability to launch via SMART on FHIR OAuth workflow
 
 ## Architecture
