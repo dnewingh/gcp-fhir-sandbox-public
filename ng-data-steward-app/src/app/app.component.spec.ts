@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'ng-admin-app' title`, () => {
+  it(`should have the 'ng-data-steward-app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-admin-app');
+    expect(app.title).toEqual('ng-data-steward-app');
   });
 
   it('should render title', () => {
