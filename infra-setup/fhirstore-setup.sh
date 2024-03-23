@@ -1,8 +1,24 @@
 #!/bin/bash
 
+# Check if the number of parameters is less than 1
+if [ "$#" -lt 1 ]; then
+    echo "Error: Google account email address not provided."
+    echo "Usage: $0 <email> <projectId>"
+    exit 1
+fi
+
+# Check if the number of parameters is exactly 1
+if [ "$#" -eq 1 ]; then
+    echo "Error: GCP project ID not provided."
+    echo "Usage: $0 <email> <projectId>"
+    exit 1
+fi
+
+# Access parameters
+USER_EMAIL="$1"
+PROJECT_ID="$2" #gcp-fhir-sandbox-001
+
 # Declare constants
-PROJECT_ID=gcp-fhir-sandbox-001 #YOUR_GCP_PROJECT_ID
-USER_EMAIL=dannewingham@gmail.com #YOUR_GOOGLE_ACCOUNT_EMAIL_ADDRESS
 DATASET_NAME=GCP-FHIR-Sandbox-001-Healthcare-Dataset-001
 FHIRSTORE_NAME=FHIRSTORE-001
 LOCATION=us-central1
