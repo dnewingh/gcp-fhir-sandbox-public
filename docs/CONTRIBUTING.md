@@ -35,3 +35,6 @@
 
 # Versioning
 - https://semver.org/
+
+# Packages
+Use a tool like https://socket.dev/ to verfiy npm packages before using.
