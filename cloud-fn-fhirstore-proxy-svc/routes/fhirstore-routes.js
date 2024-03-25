@@ -7,7 +7,7 @@ const {GoogleAuth} = require('google-auth-library');
 const {createRequestOptionsForHealthcareAPI} = require('../helpers/index');
 
 //initialize constants
-const fhirStorePath = 'https://healthcare.googleapis.com/v1/projects/gcp-fhir-sandbox-lab-001/locations/us-central1/datasets/GCP-FHIR-Sandbox-Lab-001-Healthcare-Dataset-001/fhirStores/FHIRSTORE-001'
+const fhirStorePath = process.env.FHIRSTORE_URL;
 const oauthOptions = {
   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
 };

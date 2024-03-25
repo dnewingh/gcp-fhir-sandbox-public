@@ -1,3 +1,4 @@
+require('dotenv').config()
 const {createRequestOptionsForHealthcareAPI} = require('../helpers/index');
 
 describe('Test Helpers', function () {
@@ -61,5 +62,14 @@ describe('Test Helpers', function () {
         const result = createRequestOptionsForHealthcareAPI(req);       
         
         expect(JSON.stringify(result)).toEqual(JSON.stringify(expectedResult));
+    });
+});
+
+describe('Verify environment variables', function () {
+    test('FHIRSTORE_URL', () => {
+        const fhirstoreURL = process.env.FHIRSTORE_URL;
+        console.log('process.env.FHIRSTORE_URL: ' + fhirstoreURL);
+        
+        expect(fhirstoreURL).toBeDefined();
     });
 });

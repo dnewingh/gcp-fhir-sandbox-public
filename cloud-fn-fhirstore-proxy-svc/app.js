@@ -1,6 +1,7 @@
 //import 3rd party packages and libraries
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config()
 
 //import our own files
 const fhirstoreRoutes = require("./routes/fhirstore-routes");

@@ -15,6 +15,11 @@ gcloud auth application-default login
 ```
 https://cloud.google.com/docs/authentication/provide-credentials-adc#google-idp
 
+Create .env file with FHIR Store URL.
+```
+FHIRSTORE_URL='YOUR_FHIRSTORE_URL'
+```
+
 # Deploy from local machine
 
 Authorize gcloud CLI
@@ -33,7 +38,7 @@ Update gcloud config if needed.
 gcloud init --no-launch-browser---
 ```
 
-Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.
+Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.  NOTE: Update last parameter with YOUR_FHIRSTORE_URL before executing.
 ```
 gcloud functions deploy nodejs-http-fn-fhirstore-proxy-service \
   --gen2 \
@@ -44,7 +49,8 @@ gcloud functions deploy nodejs-http-fn-fhirstore-proxy-service \
   --trigger-http \
   --allow-unauthenticated \
   --timeout=60s \
-  --max-instances=83
+  --max-instances=83 \
+  --set-env-vars FHIRSTORE_URL=YOUR_FHIRSTORE_URL
 ```
 
 # Setting up local development environment
