@@ -26,7 +26,7 @@ Update gcloud config if needed.
 gcloud init --no-launch-browser---
 ```
 
-Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.
+Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.  NOTE: Update last parameter with YOUR_BIGQUERY_URL before executing.
 ```
 gcloud functions deploy nodejs-http-fn-biqquery-service \
   --gen2 \
@@ -37,5 +37,6 @@ gcloud functions deploy nodejs-http-fn-biqquery-service \
   --trigger-http \
   --allow-unauthenticated \
   --timeout=60s \
-  --max-instances=83
+  --max-instances=83 \
+  --set-env-vars BIGQUERY_URL=YOUR_BIGQUERY_URL
 ```

@@ -16,7 +16,7 @@ const {BigQuery} = require('@google-cloud/bigquery');
 const { parseNestedStringsFromArrayOfObjects, dropNullProperties, convertPostalCodeToString } = require("../helpers");
 
 // Initialize constants
-const bigqueryApiBaseUrl = 'https://bigquery.googleapis.com/bigquery/v2/projects/gcp-fhir-sandbox-lab-001/'
+const bigqueryApiBaseUrl = process.env.BIGQUERY_URL;
 const oauthOptions = {
   scopes: ['https://www.googleapis.com/auth/cloud-platform', 'https://www.googleapis.com/auth/drive'],  //, 
 };
