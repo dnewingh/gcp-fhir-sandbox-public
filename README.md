@@ -21,7 +21,7 @@ git clone https://github.com/dnewingh/gcp-fhir-sandbox-public.git \
 cd gcp-fhir-sandbox-public
 ```
 
-Run deployment scripts.  Select y to enable any API services when prompted if not already enabled.
+Run deployment scripts.  Authorize Cloud Shell to use your credentials and select y to enable any API services when prompted if not already enabled.
 ```
 bash infra-setup/fhirstore-deploy.sh
 ```
