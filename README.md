@@ -12,6 +12,27 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 ## Architecture
 ![Architecture Diagram](docs/gcp-fhir-sandbox-architecture-diagram.png)
 
+# Quick start
+Clone repo
+```
+mkdir my-connectathon-apps \
+cd my-connectathon-apps \
+git clone https://github.com/dnewingh/gcp-fhir-sandbox-public.git \
+cd gcp-fhir-sandbox-public
+```
+
+Run deployment scripts.  Select y to enable any API services when prompted if not already enabled.
+```
+bash infra-setup/fhirstore-deploy.sh
+```
+TODO: Insert instructions for completing FHIR Store configuration via console.
+```
+bash infra-setup/big-query-deploy.sh
+```
+```
+bash infra-setup/cloud-fns-deploy.sh
+```
+
 # Contributing
 All are welcome.
 
