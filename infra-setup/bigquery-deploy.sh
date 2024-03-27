@@ -26,19 +26,34 @@ USER_EMAIL="$1"
 PROJECT_ID="$2" #gcp-fhir-sandbox-001
 SHEETS_URL="$3"
 
-echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
-exit 1
+# Update gcloud and enable drive access if running outside of Cloud Shell
+# gcloud components update
+# gcloud auth login --enable-gdrive-access
 
 # Declare constants
 DATASET_NAME=GCP-FHIR-Sandbox-001-Healthcare-Dataset-001
 FHIRSTORE_NAME=FHIRSTORE-001
-LOCATION=us-central1
-BQ_STREAMING_DATASET_NAME=fhirstore_resource_streaming_01
+BQ_LOCATION=US
+BQ_MOCK_DATA_DATASET_NAME=mock_data
 
-# Create a BigQuery Dataset to later configure BigQuery streaming
-echo "Enabling BigQuery API and creating BigQuery dataset for streaming"
+# Select the Google Cloud project that you created
+gcloud config set project $PROJECT_ID
+
+echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
+
+# Call the Node.js functions and store output
+output_hello_world=$(node -e "const { getHelloWorld } = require('./infra-setup/gdrive-helpers'); console.log(getHelloWorld());")
+output_hello_earth=$(node -e "const { getHelloEarth } = require('./infra-setup/gdrive-helpers'); console.log(getHelloEarth());")
+
+# Print the output
+echo "Output from 'getHelloWorld' function: $output_hello_world"
+echo "Output from 'getHelloEarth' function: $output_hello_earth"
+exit 1
+
+# Create a BigQuery Dataset for mock data
+echo "Enabling BigQuery API and creating BigQuery dataset for mock data..."
 gcloud services enable bigquery.googleapis.com
-bq --location=US mk -d $BQ_STREAMING_DATASET_NAME
+bq --location=US mk -d $BQ_MOCK_DATA_DATASET_NAME
 # Grant roles on the Cloud Healthcare Service Agent required for streaming
 PROJECT_NUMBER=$(gcloud projects list --filter=$PROJECT_ID --format="value(PROJECT_NUMBER)")
 HEALTHCARE_SERVICE_AGENT=service-$PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com

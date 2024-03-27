@@ -19,9 +19,10 @@ USER_EMAIL="$1"
 PROJECT_ID="$2" #gcp-fhir-sandbox-001
 
 # Declare constants
-DATASET_NAME=GCP-FHIR-Sandbox-001-Healthcare-Dataset-001
+HEALTHCARE_DATASET_NAME=GCP-FHIR-Sandbox-001-Healthcare-Dataset-001
 FHIRSTORE_NAME=FHIRSTORE-001
 LOCATION=us-central1
+BQ_LOCATION=US
 BQ_STREAMING_DATASET_NAME=fhirstore_resource_streaming_01
 
 # Based on gcloud quickstart guide: https://cloud.google.com/healthcare-api/docs/store-healthcare-data-gcloud
@@ -39,12 +40,12 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="user:$USER_EMAIL" -
 
 # Create Healthcare Dataset
 echo "Creating Healthcare Dataset..."
-gcloud healthcare datasets create $DATASET_NAME --location=$LOCATION
+gcloud healthcare datasets create $HEALTHCARE_DATASET_NAME --location=$LOCATION
 
 # Create a BigQuery Dataset to later configure BigQuery streaming
-echo "Enabling BigQuery API and creating BigQuery dataset for streaming"
+echo "Enabling BigQuery API and creating BigQuery dataset for streaming..."
 gcloud services enable bigquery.googleapis.com
-bq --location=US mk -d $BQ_STREAMING_DATASET_NAME
+bq --location=$BQ_LOCATION mk -d $BQ_STREAMING_DATASET_NAME
 # Grant roles on the Cloud Healthcare Service Agent required for streaming
 PROJECT_NUMBER=$(gcloud projects list --filter=$PROJECT_ID --format="value(PROJECT_NUMBER)")
 HEALTHCARE_SERVICE_AGENT=service-$PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com
@@ -55,10 +56,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$HEA
 echo "Creating FHIR store..."
 gcloud healthcare fhir-stores create $FHIRSTORE_NAME \
   --project=$PROJECT_ID \
-  --dataset=$DATASET_NAME \
+  --dataset=$HEALTHCARE_DATASET_NAME \
   --location=$LOCATION \
   --version=R4 \
   --enable-update-create \
   --disable-referential-integrity
 
-echo "Script finished.  Check URL to continue FHIR Store setup.  https://console.cloud.google.com/healthcare/browser/locations/$LOCATION/datasets/$DATASET_NAME/fhirStores/$FHIRSTORE_NAME/details/overview?project=$PROJECT_ID"
+echo "Script finished.  Check URL to continue FHIR Store setup.  https://console.cloud.google.com/healthcare/browser/locations/$LOCATION/datasets/$HEALTHCARE_DATASET_NAME/fhirStores/$FHIRSTORE_NAME/details/overview?project=$PROJECT_ID"
