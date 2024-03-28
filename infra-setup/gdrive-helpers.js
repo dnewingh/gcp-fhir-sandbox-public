@@ -10,19 +10,10 @@ async function queryBigQuery(req, res) {
   const auth = new GoogleAuth(oauthOptions);
   const client = await auth.getClient();
 
-  // For all options, see https://cloud.google.com/bigquery/docs/reference/rest/v2/Job
-  const query = 'SELECT * FROM mock_data.' + req.params.tableName;
+  // For all options, see https://developers.google.com/drive/api/reference/rest/v3
   const requestOptions = {
-    url: bigqueryApiBaseUrl + 'jobs',
-    method: 'POST',
-    data: {
-      configuration: {
-        query: {
-          query: query,
-          useLegacySql: false
-        }
-      }
-    }
+    url: '',
+    method: ''
   };
   
   // Run the query as a job

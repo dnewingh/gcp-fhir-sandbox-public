@@ -1,0 +1,10 @@
+{
+    "autodetect": true,
+    "sourceFormat": "GOOGLE_SHEETS",
+    "sourceUris": [
+        "https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/"
+    ],
+    "googleSheetsOptions": {
+        "range": "raw_patients"
+    }
+    }
