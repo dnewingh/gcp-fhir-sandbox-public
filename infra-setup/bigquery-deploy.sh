@@ -34,6 +34,7 @@ SHEETS_URL="$3" #https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4
 SHEETS_RANGES=(raw_patients raw_conditions) # TO DO: Integrate service to fetch list of sheet names via Drive API
 BQ_LOCATION=US
 BQ_MOCK_DATA_DATASET_NAME=mock_data
+TEMP_TABLE_DEFINITIONS_DIRECTORY=infra-setup/tmp-bigquery-table-definitions
 UDF_DEFINITIONS_DIRECTORY=big-query-ddls/udfs
 VIEW_DEFINITIONS_DIRECTORY=big-query-ddls/views
 
@@ -48,6 +49,7 @@ gcloud services enable bigquery.googleapis.com
 bq --location=$BQ_LOCATION mk -d $BQ_MOCK_DATA_DATASET_NAME
 
 # Create BigQuery table definition files and corresponding BigQuery tables
+mkdir -p $TEMP_TABLE_DEFINITIONS_DIRECTORY
 for element in "${SHEETS_RANGES[@]}"; do
     echo "Creating table definition for $element..."
     # Construct the table definition for each sheet and save to local directory
@@ -63,11 +65,11 @@ for element in "${SHEETS_RANGES[@]}"; do
     }'
 
     # Output table definition to json file
-    echo "$table_def" > infra-setup/bigquery-table-definitions/$element.json
+    echo "$table_def" > $TEMP_TABLE_DEFINITIONS_DIRECTORY/$element.json
 
     # Create BigQuery table from table definition file
     echo "Creating BigQuery table for $element..."
-    bq mk --external_table_definition="infra-setup/bigquery-table-definitions/$element.json" "$BQ_MOCK_DATA_DATASET_NAME.$element"
+    bq mk --external_table_definition="$TEMP_TABLE_DEFINITIONS_DIRECTORY/$element.json" "$BQ_MOCK_DATA_DATASET_NAME.$element"
 
 done
 

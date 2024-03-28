@@ -1,4 +1,4 @@
 node_modules
 coverage
 .env
-.tmp-bigquery-table-definitions
+tmp-bigquery-table-definitions
