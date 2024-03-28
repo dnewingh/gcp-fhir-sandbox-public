@@ -34,11 +34,13 @@ SHEETS_URL="$3" #https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4
 SHEETS_RANGES=(raw_patients raw_conditions) # TO DO: Integrate service to fetch list of sheet names via Drive API
 BQ_LOCATION=US
 BQ_MOCK_DATA_DATASET_NAME=mock_data
+UDF_DEFINITIONS_DIRECTORY=big-query-ddls/udfs
+VIEW_DEFINITIONS_DIRECTORY=big-query-ddls/views
 
 # Select the Google Cloud project that you created
 gcloud config set project $PROJECT_ID
 
-echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
+#echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
 
 # Create a BigQuery Dataset for mock data
 echo "Enabling BigQuery API and creating BigQuery dataset for mock data..."
@@ -65,15 +67,57 @@ for element in "${SHEETS_RANGES[@]}"; do
 
     # Create BigQuery table from table definition file
     echo "Creating BigQuery table for $element..."
-    bq mk --external_table_definition="./infra-setup/bigquery-table-definitions/$element.json" "$BQ_MOCK_DATA_DATASET_NAME.$element"
+    bq mk --external_table_definition="infra-setup/bigquery-table-definitions/$element.json" "$BQ_MOCK_DATA_DATASET_NAME.$element"
 
 done
 
 # Create UDFs
+echo "Creating UDFs..."
+# Loop through sql files in the UDFs directory
+for file in "$UDF_DEFINITIONS_DIRECTORY"/*.sql; do
+    # Allow contents of SQL file to be read into a variable by escaping backticks
+    echo "Executing query $file"
+    file_contents=$(sed 's/`/\\`/g' "$file")
+    # Unescape the file_contents before passing value to bq command
+    unescaped_query=$(echo "$file_contents" | sed 's/\\//g')
+
+    # Execute query
+    bq query --nouse_legacy_sql $unescaped_query
+done
 
 # Create transform views
+echo "Creating transform views..."
+# Loop through transform sql files in the views directory
+for file in "$VIEW_DEFINITIONS_DIRECTORY"/*transform*.sql; do
+    # Allow contents of SQL file to be read into a variable by escaping backticks
+    echo "Executing query $file"
+    file_contents=$(sed 's/`/\\`/g' "$file")
+    # Unescape the file_contents before passing value to bq command
+    unescaped_query=$(echo "$file_contents" | sed 's/\\//g')
+    
+    # Create view
+    bq mk \
+        --nouse_legacy_sql \
+        --view \ "$unescaped_query" \
+        "$BQ_MOCK_DATA_DATASET_NAME.$(basename $file .sql)"    
+done
 
 # Create publish views
+echo "Creating publish views..."
+# Loop through publish sql files in the views directory
+for file in "$VIEW_DEFINITIONS_DIRECTORY"/*publish*.sql; do
+    # Allow contents of SQL file to be read into a variable by escaping backticks
+    echo "Executing query $file"
+    file_contents=$(sed 's/`/\\`/g' "$file")
+    # Unescape the file_contents before passing value to bq command
+    unescaped_query=$(echo "$file_contents" | sed 's/\\//g')
+    
+    # Create view
+    bq mk \
+        --nouse_legacy_sql \
+        --view \ "$unescaped_query" \
+        "$BQ_MOCK_DATA_DATASET_NAME.$(basename $file .sql)"    
+done
 
 exit 1
 

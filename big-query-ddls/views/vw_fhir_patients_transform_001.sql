@@ -47,5 +47,4 @@ publishable
         ) as period
     )
   ] as address
-FROM `gcp-fhir-sandbox-lab-001.mock_data.raw_patients` rp
---LIMIT 1
+FROM `mock_data.raw_patients` rp
