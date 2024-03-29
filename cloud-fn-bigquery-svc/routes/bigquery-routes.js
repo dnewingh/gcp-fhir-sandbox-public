@@ -69,7 +69,7 @@ async function queryBigQuery(req, res) {
 
 // Initialize Router object from Express and define routes
 const router = express.Router();
-router.get("/sheetsUrl", (req, res) => { res.send(sheetsUrl); });
+router.get("/sheetsUrl", (req, res) => { res.json({sheetsUrl}); });
 router.get("/:tableName", queryBigQuery);
 
 // Export the configured router object
