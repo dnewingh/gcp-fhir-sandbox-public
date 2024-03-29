@@ -17,6 +17,7 @@ const { parseNestedStringsFromArrayOfObjects, dropNullProperties, convertPostalC
 
 // Initialize constants
 const bigqueryApiBaseUrl = process.env.BIGQUERY_URL;
+const sheetsUrl = process.env.SHEETS_URL;
 const oauthOptions = {
   scopes: ['https://www.googleapis.com/auth/cloud-platform', 'https://www.googleapis.com/auth/drive'],  //, 
 };
@@ -68,6 +69,7 @@ async function queryBigQuery(req, res) {
 
 // Initialize Router object from Express and define routes
 const router = express.Router();
+router.get("/sheetsUrl", (req, res) => { res.send(sheetsUrl); });
 router.get("/:tableName", queryBigQuery);
 
 // Export the configured router object

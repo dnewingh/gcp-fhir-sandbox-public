@@ -26,7 +26,19 @@ Update gcloud config if needed.
 gcloud init --no-launch-browser---
 ```
 
-Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.  NOTE: Update last parameter with YOUR_BIGQUERY_URL before executing.
+## Project setup
+```
+npm install
+```
+
+### Environment variables
+Create .env file in root directory with BigQuery and Sheets URLs.
+```
+BIGQUERY_URL='YOUR_BIGQUERY_URL'
+SHEETS_URL='YOUR_SHEETS_URL'
+```
+
+Run the following CLI command to create or update cloud function.  Select y to enable any API services when prompted if not already enabled.  NOTE: Update last parameter with YOUR_BIGQUERY_URL and YOUR_SHEETS_URL before executing.
 ```
 gcloud functions deploy nodejs-http-fn-biqquery-service \
   --gen2 \
@@ -38,5 +50,5 @@ gcloud functions deploy nodejs-http-fn-biqquery-service \
   --allow-unauthenticated \
   --timeout=60s \
   --max-instances=83 \
-  --set-env-vars BIGQUERY_URL=YOUR_BIGQUERY_URL
+  --set-env-vars "BIGQUERY_URL=YOUR_BIGQUERY_URL, SHEETS_URL=YOUR_SHEETS_URL"
 ```
