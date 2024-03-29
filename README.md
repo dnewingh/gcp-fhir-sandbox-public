@@ -12,26 +12,10 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 ## Architecture
 ![Architecture Diagram](docs/gcp-fhir-sandbox-architecture-diagram.png)
 
-# Quick start
-Clone repo
-```
-mkdir my-connectathon-apps \
-cd my-connectathon-apps \
-git clone https://github.com/dnewingh/gcp-fhir-sandbox-public.git \
-cd gcp-fhir-sandbox-public
-```
-
-Run deployment scripts.  Authorize Cloud Shell to use your credentials and select y to enable any API services when prompted if not already enabled.
-```
-bash infra-setup/fhirstore-deploy.sh
-```
-TODO: Insert instructions for completing FHIR Store configuration via console.
-```
-bash infra-setup/big-query-deploy.sh
-```
-```
-bash infra-setup/cloud-fns-deploy.sh
-```
+# Try it out
+- Data steward app - https://gcp-fhir-sandbox-001.web.app/
+- Connected Google Sheet - https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/
+- Open FHIR server endpoint - https://us-central1-gcp-fhir-sandbox-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/
 
 # Contributing
 All are welcome.
@@ -43,16 +27,5 @@ MIT
 - GCP Architecture Diagramming Tool: https://cloud.google.com/blog/topics/developers-practitioners/introducing-google-cloud-architecture-diagramming-tool
 https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoints-for-one-google-cloud-function
 
-# General Considerations for a SMART on FHIR simulator
-- GCP: easy to spin up Healthcare API but no auth/launcher interface
-- smart-launcher: clean interface but only works with smarthealthit public endpoints
-    - could possibly substitute with a HAPI server
-- Logica sandbox -> distracting EHR launcher
-- Epic EHR sandbox -> read-only permissions available
-
 # To Do
-- Ng admin app with ability to post/put
-    - test if execute bundle preserves resourceId
-- Update architecture illustration with Ng data steward app
-- Shell script for cli setup and implementation of environment variables
-- Blog post
+- Update architecture illustration with Ng data steward app and label manual export/import of resources
