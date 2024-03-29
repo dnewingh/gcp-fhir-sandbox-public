@@ -67,7 +67,21 @@ export class HomeMockDataTableComponent {
   postMockData(resourceType: string, resourcePayload: object) {
     this.FhirstoreDataService.postResource(resourceType, resourcePayload).subscribe(
       {
-        next: data => console.log(data),
+        next: (data) => {
+          this.RequestLogsService.addLog(
+            {
+              resourceType: resourceType,
+              mockResourceId: '123',  //TO DO: get actual resourceId
+              requestMethod: 'POST',
+              requestTimestamp: new Date(),
+              relativeUrl: resourceType,
+              responseStatus: data.status,
+              responseBody: data.body
+            }
+          );
+          console.log(data);  // Log the full response
+          //console.log(this.RequestLogsService.getLogs());
+        },
         error: error => console.error(error),
         complete: () => console.log('resource posted.')
       }
@@ -81,7 +95,7 @@ export class HomeMockDataTableComponent {
           this.RequestLogsService.addLog(
             {
               resourceType: resourceType,
-              mockResourceId: '123',
+              mockResourceId: '123',  //TO DO: get actual resourceId
               requestMethod: 'POST',
               requestTimestamp: new Date(),
               relativeUrl: resourceType + '/$validate',
@@ -89,8 +103,8 @@ export class HomeMockDataTableComponent {
               responseBody: data.body
             }
           );
-          console.log(data);
-          console.log(this.RequestLogsService.getLogs());
+          console.log(data);  // Log the full response
+          //console.log(this.RequestLogsService.getLogs());
         },
         error: (error) => {
           this.RequestLogsService.addLog(
