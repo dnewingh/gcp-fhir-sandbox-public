@@ -42,7 +42,6 @@ LOCATION=us-central1
 # Select the Google Cloud project that you created
 gcloud config set project $PROJECT_ID
 
-if [ 0 -eq 1 ]; then
 #echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
 
 # Create a BigQuery Dataset for mock data
@@ -123,7 +122,6 @@ for file in "$VIEW_DEFINITIONS_DIRECTORY"/*publish*.sql; do
         "$BQ_MOCK_DATA_DATASET_NAME.$(basename $file .sql)"    
 done
 
-fi
 # Deploy BigQuery service
 echo "Deploying BigQuery service to cloud function..."
 BIGQUERY_URL="https://bigquery.googleapis.com/bigquery/v2/projects/$PROJECT_ID/"
