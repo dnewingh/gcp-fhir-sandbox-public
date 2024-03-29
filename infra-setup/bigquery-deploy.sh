@@ -37,10 +37,12 @@ BQ_MOCK_DATA_DATASET_NAME=mock_data
 TEMP_TABLE_DEFINITIONS_DIRECTORY=infra-setup/tmp-bigquery-table-definitions
 UDF_DEFINITIONS_DIRECTORY=big-query-ddls/udfs
 VIEW_DEFINITIONS_DIRECTORY=big-query-ddls/views
+LOCATION=us-central1
 
 # Select the Google Cloud project that you created
 gcloud config set project $PROJECT_ID
 
+if [ 0 -eq 1 ]; then
 #echo "$USER_EMAIL $PROJECT_ID $SHEETS_URL"
 
 # Create a BigQuery Dataset for mock data
@@ -121,11 +123,22 @@ for file in "$VIEW_DEFINITIONS_DIRECTORY"/*publish*.sql; do
         "$BQ_MOCK_DATA_DATASET_NAME.$(basename $file .sql)"    
 done
 
-exit 1
+fi
+# Deploy BigQuery service
+echo "Deploying BigQuery service to cloud function..."
+BIGQUERY_URL="https://bigquery.googleapis.com/bigquery/v2/projects/$PROJECT_ID/"
 
+# Enable the Cloud Functions API
+gcloud services enable cloudfunctions.googleapis.com
 
-# Grant roles on the Cloud Healthcare Service Agent required for streaming
-PROJECT_NUMBER=$(gcloud projects list --filter=$PROJECT_ID --format="value(PROJECT_NUMBER)")
-HEALTHCARE_SERVICE_AGENT=service-$PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$HEALTHCARE_SERVICE_AGENT" --role=roles/bigquery.dataEditor
-gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$HEALTHCARE_SERVICE_AGENT" --role=roles/bigquery.jobUser
+gcloud functions deploy nodejs-http-fn-biqquery-service \
+  --gen2 \
+  --runtime=nodejs20 \
+  --entry-point=app \
+  --source cloud-fn-bigquery-svc \
+  --region=$LOCATION \
+  --trigger-http \
+  --allow-unauthenticated \
+  --timeout=60s \
+  --max-instances=83 \
+  --set-env-vars "BIGQUERY_URL=$BIGQUERY_URL, SHEETS_URL=$SHEETS_URL"

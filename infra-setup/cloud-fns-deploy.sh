@@ -22,7 +22,6 @@ PROJECT_ID="$2" #gcp-fhir-sandbox-001
 DATASET_NAME=GCP-FHIR-Sandbox-001-Healthcare-Dataset-001
 FHIRSTORE_NAME=FHIRSTORE-001
 LOCATION=us-central1
-##BQ_STREAMING_DATASET_NAME=fhirstore_resource_streaming_01
 
 # Select the Google Cloud project that you created
 gcloud config set project $PROJECT_ID
@@ -55,19 +54,3 @@ gcloud healthcare fhir-stores add-iam-policy-binding $FHIRSTORE_NAME \
   --dataset=$DATASET_NAME \
   --member="serviceAccount:$COMPUTE_SERVICE_ACCOUNT" \
   --role=roles/healthcare.fhirResourceEditor
-
-# Deploy BigQuery service
-echo "Deploying BigQuery service..."
-BIGQUERY_URL="https://bigquery.googleapis.com/bigquery/v2/projects/$PROJECT_ID/"
-
-gcloud functions deploy nodejs-http-fn-biqquery-service \
-  --gen2 \
-  --runtime=nodejs20 \
-  --entry-point=app \
-  --source cloud-fn-bigquery-svc \
-  --region=$LOCATION \
-  --trigger-http \
-  --allow-unauthenticated \
-  --timeout=60s \
-  --max-instances=83 \
-  --set-env-vars BIGQUERY_URL=$BIGQUERY_URL
