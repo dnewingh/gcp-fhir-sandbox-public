@@ -18,7 +18,7 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 - Open FHIR server endpoint - https://us-central1-gcp-fhir-sandbox-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/
 
 # Contributing
-All are welcome.
+All are welcome.  See [CONTIRUBTING](docs/CONTRIBUTING.md)
 
 # License
 MIT
@@ -29,3 +29,4 @@ https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoin
 
 # To Do
 - Update architecture illustration with Ng data steward app and label manual export/import of resources
+- Enhance library of Google Sheet resource templates and BigQuery ETL scripts.
