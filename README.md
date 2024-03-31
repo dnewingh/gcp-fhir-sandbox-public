@@ -17,15 +17,14 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 - Connected Google Sheet - https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/
 - Open FHIR server endpoint - https://us-central1-gcp-fhir-sandbox-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/
 
+# Project setup
+Create your own GCP FHIR Sandbox in 15 minutes.  See [INFRA-SETUP](infra-setup/README.md).
+
 # Contributing
 All are welcome.  See [CONTIRUBTING](docs/CONTRIBUTING.md)
 
 # License
 MIT
-
-# References
-- GCP Architecture Diagramming Tool: https://cloud.google.com/blog/topics/developers-practitioners/introducing-google-cloud-architecture-diagramming-tool
-https://stackoverflow.com/questions/47155378/how-can-i-have-multiple-api-endpoints-for-one-google-cloud-function
 
 # To Do
 - Update architecture illustration with Ng data steward app and label manual export/import of resources
