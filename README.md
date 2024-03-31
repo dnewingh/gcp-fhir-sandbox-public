@@ -13,9 +13,20 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 ![Architecture Diagram](docs/gcp-fhir-sandbox-architecture-diagram.png)
 
 # Try it out
+Open the demo UIs.
 - Data steward app - https://gcp-fhir-sandbox-001.web.app/
 - Connected Google Sheet - https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/
-- Open FHIR server endpoint - https://us-central1-gcp-fhir-sandbox-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/
+
+In the Google Sheet, copy the following row of data into the next blank row in the 'raw_conditions' sheet.
+```
+TRUE	MY-FIRST-MOCK-RESOURCE	Condition	http://terminology.hl7.org/CodeSystem/condition-clinical	active	Active	http://terminology.hl7.org/CodeSystem/condition-ver-status	confirmed	Confirmed	http://terminology.hl7.org/CodeSystem/condition-category	encounter-diagnosis	Encounter Diagnosis	http://hl7.org/fhir/sid/icd-10-cm	I10	Essential (primary) hypertension	Patient/Patient-1	2020-01-01
+```
+
+Refresh [Data steward app](https://gcp-fhir-sandbox-001.web.app/), observe newly added Condition resource, and try to $validate / POST.
+
+Congratulations!  You just created a FHIR resource using Google Sheets.
+
+Continue exploring with the open FHIR server endpoint at: https://us-central1-gcp-fhir-sandbox-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/
 
 # Project setup
 Create your own GCP FHIR Sandbox in 15 minutes.  See [INFRA-SETUP](infra-setup/README.md).
