@@ -27,5 +27,4 @@ All are welcome.  See [CONTIRUBTING](docs/CONTRIBUTING.md)
 MIT
 
 # To Do
-- Update architecture illustration with Ng data steward app and label manual export/import of resources
 - Enhance library of Google Sheet resource templates and BigQuery ETL scripts.
