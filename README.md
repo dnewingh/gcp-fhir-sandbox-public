@@ -38,4 +38,5 @@ All are welcome.  See [CONTIRUBTING](docs/CONTRIBUTING.md)
 MIT
 
 # To Do
-- Enhance library of Google Sheet resource templates and BigQuery ETL scripts.
+- Enhance library of Google Sheet resource templates and BigQuery ETL scripts
+- Test in connectathon
