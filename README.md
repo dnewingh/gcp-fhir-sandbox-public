@@ -14,8 +14,8 @@ This project is an end to end guide for spinning up a FHIR sandbox environment i
 
 # Try it out
 Open the demo UIs.
+- Google Sheet - https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/
 - Data steward app - https://gcp-fhir-sandbox-001.web.app/
-- Connected Google Sheet - https://docs.google.com/spreadsheets/d/1EfjAuj5o72n2Hc_KKLMD2o4Oteh1LTne2lXanSo_lvk/
 
 In the Google Sheet, copy the following row of data into the next blank row in the 'raw_conditions' sheet.
 ```
