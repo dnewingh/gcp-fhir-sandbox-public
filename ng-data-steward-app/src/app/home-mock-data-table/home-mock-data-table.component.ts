@@ -11,38 +11,45 @@ import { RequestLogsService } from '../services/request-logs.service';
   imports: [JsonPipe, NgbAccordionModule],
   template: `
     <h2>{{ resourceType }}</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Resource</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (mockResource of mockData; track mockResource.id; let i = $index) {
+    @if (isLoading === true) {
+      <div class="d-flex align-items-center">
+        <p class="mb-0">Loading...</p>
+        <div class="spinner-border spinner-border-sm ms-auto text-primary" role="status" aria-hidden="true"></div>
+      </div>
+    } @else {
+      <table class="table">
+        <thead>
           <tr>
-            <td class="w-75">
-              <div ngbAccordion>
-                <div ngbAccordionItem>
-                  <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton class="p-1">{{ mockResource.id }}</button>
-                  </h2>
-                  <div ngbAccordionCollapse>
-                    <div ngbAccordionBody>
-                      <ng-template><pre style="white-space: pre-wrap">{{ mockResource | json }}</pre></ng-template>
+            <th scope="col">Resource</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (mockResource of mockData; track mockResource.id; let i = $index) {
+            <tr>
+              <td class="w-75">
+                <div ngbAccordion>
+                  <div ngbAccordionItem>
+                    <h2 ngbAccordionHeader>
+                      <button ngbAccordionButton class="p-1">{{ mockResource.id }}</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                      <div ngbAccordionBody>
+                        <ng-template><pre style="white-space: pre-wrap">{{ mockResource | json }}</pre></ng-template>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>  
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">Post</button>
-              <button type="button" class="btn btn-primary btn-sm ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+                </div>  
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">Post</button>
+                <button type="button" class="btn btn-primary btn-sm ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
   `,
   styleUrl: './home-mock-data-table.component.scss'
 })
@@ -51,6 +58,7 @@ export class HomeMockDataTableComponent {
   @Input() resourceType = 'ResourceType';
   @Input() mockDataTableName = 'MockDataTableName'
   mockData?: any[];
+  isLoading = true;
 
   constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService, private RequestLogsService: RequestLogsService) {}
 
@@ -59,7 +67,10 @@ export class HomeMockDataTableComponent {
       {
         next: data => this.mockData = data,
         error: error => console.error(error),
-        complete: () => console.log('Mock Data loaded from ' + this.mockDataTableName + '.  ' + this.mockData?.length + ' resources.')
+        complete: () => {
+          console.log('Mock Data loaded from ' + this.mockDataTableName + '.  ' + this.mockData?.length + ' resources.');
+          this.isLoading = false;
+        }
       }
     );
   }
