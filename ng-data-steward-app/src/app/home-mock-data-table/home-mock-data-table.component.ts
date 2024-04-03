@@ -4,11 +4,12 @@ import { BigqueryMockDataService } from '../services/bigquery-mock-data.service'
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { FhirstoreDataService } from '../services/fhirstore-data.service';
 import { RequestLogsService } from '../services/request-logs.service';
+import { HomeMockDataTableRowActionsComponent } from '../home-mock-data-table-row-actions/home-mock-data-table-row-actions.component';
 
 @Component({
   selector: 'app-home-mock-data-table',
   standalone: true,
-  imports: [JsonPipe, NgbAccordionModule],
+  imports: [JsonPipe, NgbAccordionModule, HomeMockDataTableRowActionsComponent],
   template: `
     <h2>{{ resourceType }}</h2>
     @if (isLoading === true) {
@@ -44,6 +45,7 @@ import { RequestLogsService } from '../services/request-logs.service';
               <td>
                 <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">Post</button>
                 <button type="button" class="btn btn-primary btn-sm ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
+                <app-home-mock-data-table-row-actions [resourceType]="resourceType" [mockResource]="mockResource"></app-home-mock-data-table-row-actions>
               </td>
             </tr>
           }
@@ -121,7 +123,7 @@ export class HomeMockDataTableComponent {
           this.RequestLogsService.addLog(
             {
               resourceType: resourceType,
-              mockResourceId: '123',
+              mockResourceId: '123',  //TO DO: get actual resourceId
               requestMethod: 'POST',
               requestTimestamp: new Date(),
               relativeUrl: resourceType + '/$validate',
