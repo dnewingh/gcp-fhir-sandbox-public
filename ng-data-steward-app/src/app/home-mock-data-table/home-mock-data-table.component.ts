@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { BigqueryMockDataService } from '../services/bigquery-mock-data.service';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { FhirstoreDataService } from '../services/fhirstore-data.service';
-import { RequestLogsService } from '../services/request-logs.service';
 import { HomeMockDataTableRowActionsComponent } from '../home-mock-data-table-row-actions/home-mock-data-table-row-actions.component';
 
 @Component({
@@ -43,8 +41,6 @@ import { HomeMockDataTableRowActionsComponent } from '../home-mock-data-table-ro
                 </div>  
               </td>
               <td>
-                <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">Post</button>
-                <button type="button" class="btn btn-primary btn-sm ms-2" (click)="validateMockData(resourceType, mockResource)">$Validate</button>
                 <app-home-mock-data-table-row-actions [resourceType]="resourceType" [mockResource]="mockResource"></app-home-mock-data-table-row-actions>
               </td>
             </tr>
@@ -62,9 +58,10 @@ export class HomeMockDataTableComponent {
   mockData?: any[];
   isLoading = true;
 
-  constructor(private BigqueryMockDataService: BigqueryMockDataService, private FhirstoreDataService: FhirstoreDataService, private RequestLogsService: RequestLogsService) {}
+  constructor(private BigqueryMockDataService: BigqueryMockDataService) {}
 
   ngOnInit() {
+    // Fetch and hydrate components with Mock Data from BigQuery service
     this.BigqueryMockDataService.getMockData(this.mockDataTableName).subscribe(
       {
         next: data => this.mockData = data,
@@ -76,68 +73,5 @@ export class HomeMockDataTableComponent {
       }
     );
   }
-
-  postMockData(resourceType: string, resourcePayload: object) {
-    this.FhirstoreDataService.postResource(resourceType, resourcePayload).subscribe(
-      {
-        next: (data) => {
-          this.RequestLogsService.addLog(
-            {
-              resourceType: resourceType,
-              mockResourceId: '123',  //TO DO: get actual resourceId
-              requestMethod: 'POST',
-              requestTimestamp: new Date(),
-              relativeUrl: resourceType,
-              responseStatus: data.status,
-              responseBody: data.body
-            }
-          );
-          console.log(data);  // Log the full response
-          //console.log(this.RequestLogsService.getLogs());
-        },
-        error: error => console.error(error),
-        complete: () => console.log('resource posted.')
-      }
-    )    
-  }
-
-  validateMockData(resourceType: string, resourcePayload: object) {
-    this.FhirstoreDataService.postResource(resourceType + '/$validate', resourcePayload).subscribe(
-      {
-        next: (data) => {
-          this.RequestLogsService.addLog(
-            {
-              resourceType: resourceType,
-              mockResourceId: '123',  //TO DO: get actual resourceId
-              requestMethod: 'POST',
-              requestTimestamp: new Date(),
-              relativeUrl: resourceType + '/$validate',
-              responseStatus: data.status,
-              responseBody: data.body
-            }
-          );
-          console.log(data);  // Log the full response
-          //console.log(this.RequestLogsService.getLogs());
-        },
-        error: (error) => {
-          this.RequestLogsService.addLog(
-            {
-              resourceType: resourceType,
-              mockResourceId: '123',  //TO DO: get actual resourceId
-              requestMethod: 'POST',
-              requestTimestamp: new Date(),
-              relativeUrl: resourceType + '/$validate',
-              responseStatus: error.status,
-              responseBody: error.error
-            }
-          );
-          console.log(error);
-          console.log(this.RequestLogsService.getLogs());
-        },
-        complete: () => console.log('resource validated.')
-      }
-    )    
-  }
-
 
 }

@@ -7,16 +7,18 @@ import { RequestLogsService } from '../services/request-logs.service';
   standalone: true,
   imports: [],
   template: `
-    <p>
-      home-mock-data-table-row-actions works!
-    </p>
-    <button type="button" class="btn btn-primary btn-sm" (click)="postMockData(resourceType, mockResource)">
+    <button type="button" class="btn btn-primary btn-sm" [disabled]="isPosting" (click)="postMockData(resourceType, mockResource)">
       @if (isPosting === true) {
         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
         <span class="visually-hidden" role="status">Loading...</span>
-      } @else {
-        Post
-      }
+      } POST
+    </button>
+    <button type="button" class="btn btn-primary btn-sm ms-2" [disabled]="isValidating" (click)="validateMockData(resourceType, mockResource)">
+      @if (isValidating === true) {
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span class="visually-hidden" role="status">Loading...</span>
+        }
+      $Validate
     </button>
   `,
   styles: ``
@@ -61,6 +63,53 @@ export class HomeMockDataTableRowActionsComponent {
       }
     )
     
+  }
+
+  validateMockData(resourceType: string, resourcePayload: object) {
+    // Set actions state
+    this.isValidating = true;
+
+    // Send request for $validate operation to FHIR server
+    this.FhirstoreDataService.postResource(resourceType + '/$validate', resourcePayload).subscribe(
+      {
+        next: (data) => {
+          this.RequestLogsService.addLog(
+            {
+              resourceType: resourceType,
+              mockResourceId: '123',  //TO DO: get actual resourceId
+              requestMethod: 'POST',
+              requestTimestamp: new Date(),
+              relativeUrl: resourceType + '/$validate',
+              responseStatus: data.status,
+              responseBody: data.body
+            }
+          );
+          console.log(data);  // Log the full response
+          //console.log(this.RequestLogsService.getLogs());
+        },
+        error: (error) => {
+          this.RequestLogsService.addLog(
+            {
+              resourceType: resourceType,
+              mockResourceId: '123',  //TO DO: get actual resourceId
+              requestMethod: 'POST',
+              requestTimestamp: new Date(),
+              relativeUrl: resourceType + '/$validate',
+              responseStatus: error.status,
+              responseBody: error.error
+            }
+          );
+          console.log(error);
+          console.log(this.RequestLogsService.getLogs());
+        },
+        complete: () => {
+          console.log('resource validated.')
+          
+          // Update actions state
+          this.isValidating = false;
+        }
+      }
+    )    
   }
 
 }
