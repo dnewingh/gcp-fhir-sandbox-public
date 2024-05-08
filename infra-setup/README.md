@@ -31,7 +31,7 @@ Next, run the FHIR store proxy deployment script with the arguments for your pro
 bash infra-setup/fhirstore-proxy-deploy.sh <emailId> <projectId>
 ```
 
-Save the URL displayed in the terminal as the public endpoint for your FHIR server.
+Save the cloud function URL displayed in the terminal.  The `/fhir` route on this URL is the public endpoint for your FHIR server.
 
 ## 2. BigQuery Setup
 Start by opening and then saving a copy of the following Google Sheets Template to your Google Drive (it should be saved to the Drive of the same account that is the owner of your GCP project).
