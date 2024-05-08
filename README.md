@@ -1,3 +1,10 @@
+# Branch Information
+This branch is for an implementation to be used during the May 2024 HL7 Connectathon - Vulcan UDP track.
+- Google Sheet - https://docs.google.com/spreadsheets/d/1uBYtDOkpKbvGVn0GaCJPJVmvXcIMumAmjmoiu8lXMLY
+- Data steward app - https://hl7-vulcan-udp-lab-001.web.app/
+- FHIR server public endpoint - https://us-central1-hl7-vulcan-udp-lab-001.cloudfunctions.net/nodejs-http-fn-fhirstore-proxy-service/fhir/metadata
+- GCP project id - hl7-vulcan-udp-lab-001
+
 # Background
 This project is an end to end guide for spinning up a FHIR sandbox environment in Google Cloud Platform.  In addition to the core FHIR server capabilities this project addresses several common use cases required to support connectathon POCs.
 
